@@ -1,2 +1,41 @@
-<h1>Admin#home</h1>
-<p>Find me in app/views/admin/home.html.erb</p>
+<div class="container" style="background-color:#AEB6BF">
+    <h1 style="text-align:center;margin-bottom:15px">Grupos</h1>
+    <br>
+    <div class="row" style="width:90%;margin:auto">
+        <%n = 0%>
+        <%@grupos.each do |g|%>
+            <%n += 1%>
+        <%if n.even?%>
+            <%cor = "#F2F3F4"%>
+        <%else%>
+            <%cor = "#D6DBDF"%>
+        <%end%>
+            <div class="col-sm-3" style="margin-bottom: 30px;padding-bottom:15px;padding-left:20px;background-color:<%=cor%>;border: 2px solid #AEB6BF">
+                <div style="background-color:#34495E;margin-bottom:10px;margin-left:-20px;margin-right:-15px;padding-bottom:0.5px;color:white">
+                    <h3 style="text-align:center">Grupo <%=g.nome%></h3>
+                </div>
+                <%g.selecaos.each do |s|%>
+                    <p style="padding-left:27.5%;margin-bottom:3px;font-weight:700;color:#283747;text-shadow: 0.5px 0px white"><img width="15%" src="<%=s.bandeira%>"> <%=s.nome%></p>
+                <%end%>
+            </div>
+        <%end%>
+    </div>
+    <br>
+    <br>
+    <h3 style="text-align:center;margin-bottom:15px">Confederações</h3>
+    <br>
+    <div class="row">
+        <div class="col-sm-1">
+        </div>
+        <%@conf.each do |c|%>
+            <div class="col-sm-2">
+                <h5 style="margin-bottom:15px"><%=c.nome%>: <%=c.selecaos.size%></h5>
+                <%c.selecaos.sort_by {|n| n.nome}.each do |s|%>
+                    <p><img width="10%" src="<%=s.bandeira%>"> <%=s.nome%></p>
+                <%end%>
+            </div>
+        <%end%>
+         <div class="col-sm-1">
+        </div>
+    </div>
+</div>

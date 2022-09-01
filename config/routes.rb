@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get 'admin/home'
+  root to: 'admin#home'
   get 'admin/classificacao'
   get 'admin/tabela'
   get 'admin/estatisticas'
