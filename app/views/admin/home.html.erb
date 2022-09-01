@@ -1,5 +1,5 @@
-<div class="container" style="background-color:#AEB6BF">
-    <h1 style="text-align:center;margin-bottom:15px;text-shadow: 0.5px 0.5px white;font-weight:700;color: #273746">Grupos</h1>
+<div class="container">
+    <h1 style="margin-bottom:15px;text-shadow: 0.5px 0.5px white;font-weight:700;color: #273746">Grupos</h1>
     <br>
     <div class="row" style="width:90%;margin:auto">
         <%n = 0%>
@@ -12,7 +12,7 @@
         <%end%>
             <div class="col-sm-3" style="margin-bottom: 30px;padding-bottom:15px;padding-left:20px;background-color:<%=cor%>;border: 2px solid #AEB6BF">
                 <div style="background-color:#34495E;margin-bottom:10px;margin-left:-20px;margin-right:-15px;padding-bottom:0.5px;color:white">
-                    <h3 style="text-align:center;text-shadow: 0.5px 0.5px black">Grupo <%=g.nome%></h3>
+                    <h3 style="text-shadow: 0.5px 0.5px black">Grupo <%=g.nome%></h3>
                 </div>
                 <%g.selecaos.each do |s|%>
                     <p style="padding-left:27.5%;margin-bottom:3px;font-weight:700;color:#283747;text-shadow: 0.5px 0px white"><img width="15%" src="<%=s.bandeira%>"> <%=s.nome%></p>
@@ -22,11 +22,11 @@
     </div>
     <br>
     <br>
-    <h3 style="text-align:center;margin-bottom:15px;text-shadow: 0.5px 0.5px white;font-weight:700;color: #273746">Confederações</h3>
+    <h3 style="margin-bottom:15px;text-shadow: 0.5px 0.5px white;font-weight:700;color: #273746">Confederações</h3>
     <br>
     <%@conf.each do |c|%>
         <div style="background-color:#34495E;padding:5px">
-            <h5 style="text-align:center;text-shadow: 0.5px 0.5px black;font-weight:700;color: white"><%=c.nome%>: <%=c.selecaos.size%></h5>
+            <h5 style="text-shadow: 0.5px 0.5px black;font-weight:700;color: white"><%=c.nome%>: <%=c.selecaos.size%></h5>
         </div>
         <div class="row" style="border: 1px solid #34495E;width:100%;margin:auto;padding:10px">
             <%c.selecaos.sort_by {|n| n.nome}.each do |s|%>

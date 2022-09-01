@@ -1,2 +1,26 @@
-<h1>Admin#tabela</h1>
-<p>Find me in app/views/admin/tabela.html.erb</p>
+<div class="container">
+    <h1 style="text-shadow: 1px 1px white">Tabela de Jogos</h1>
+    <br>
+    <br>
+    <%@grupos.each do |g|%>
+        <div style="margin-bottom:15px;text-shadow: 1px 1px white">
+            <%if g.nome.length == 1%>
+                <h2>Grupo <%=g.nome%></h2>
+            <%else%>
+                <h2><%=g.nome%></h2>
+            <%end%>
+        </div>
+        <div class="row">
+            <%g.jogos.each do |j|%>
+                <div class="col-sm-6" style="text-align:center">
+                    <h6><%=j.data.strftime "%d/%m/%Y - %H:%M"%>
+                    <%if @id_selecaos.include?(j.equipe1 && j.equipe2)%>
+                        <p><%=Selecao.find(j.equipe1).nome%> x <%=Selecao.find(j.equipe2).nome%></p>
+                    <%else%>
+                        <p>A definir x A definir</p>
+                    <%end%>
+                </div>
+            <%end%>
+        </div>
+    <%end%>
+</div>

@@ -9,6 +9,13 @@ class AdminController < ApplicationController
   end
 
   def tabela
+    @grupos = Grupo.all
+    @jogos = Jogo.all
+    @selecaos = Selecao.all
+    @id_selecaos = []
+    @selecaos.each do |s|
+      @id_selecaos << s.id
+    end
   end
 
   def estatisticas
