@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  equipe1: 1
+  equipe2: 1
+  g1: 1
+  g2: 1
+  p1: 1
+  p2: 1
+  data: 2022-09-01 00:16:53
+
+two:
+  equipe1: 1
+  equipe2: 1
+  g1: 1
+  g2: 1
+  p1: 1
+  p2: 1
+  data: 2022-09-01 00:16:53
