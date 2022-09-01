@@ -1,0 +1,2 @@
+class Confederation < ApplicationRecord
+end

@@ -1,0 +1,2 @@
+class Selecao < ApplicationRecord
+end

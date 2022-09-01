@@ -1,0 +1,29 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  nome: MyString
+  continente: MyString
+  grupo_id: one
+  confederation_id: one
+  bandeira: MyString
+  jg: 1
+  vt: 1
+  ep: 1
+  dr: 1
+  pt: 1
+  gp: 1
+  gc: 1
+
+two:
+  nome: MyString
+  continente: MyString
+  grupo_id: two
+  confederation_id: two
+  bandeira: MyString
+  jg: 1
+  vt: 1
+  ep: 1
+  dr: 1
+  pt: 1
+  gp: 1
+  gc: 1
