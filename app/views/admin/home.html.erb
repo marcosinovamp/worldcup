@@ -1,5 +1,7 @@
 <div class="container">
-    <h1 style="margin-bottom:15px;text-shadow: 0.5px 0.5px white;font-weight:700;color: #273746">Grupos</h1>
+    <div class="titulo">
+        <h1 class="lightshadow">Grupos</h1>
+    </div>
     <br>
     <div class="row" style="width:90%;margin:auto">
         <%n = 0%>
@@ -10,25 +12,28 @@
         <%else%>
             <%cor = "#D6DBDF"%>
         <%end%>
-            <div class="col-sm-3" style="margin-bottom: 30px;padding-bottom:15px;padding-left:20px;background-color:<%=cor%>;border: 2px solid #AEB6BF">
-                <div style="background-color:#34495E;margin-bottom:10px;margin-left:-20px;margin-right:-15px;padding-bottom:0.5px;color:white">
-                    <h3 style="text-shadow: 0.5px 0.5px black">Grupo <%=g.nome%></h3>
+            <div class="col-sm-3 grupo" style="background-color:<%=cor%>">
+                <div class="grupotitle">
+                    <h4 class="darkshadow">Grupo <%=g.nome%></h4>
                 </div>
                 <%g.selecaos.each do |s|%>
-                    <p style="padding-left:27.5%;margin-bottom:3px;font-weight:700;color:#283747;text-shadow: 0.5px 0px white"><img width="15%" src="<%=s.bandeira%>"> <%=s.nome%></p>
+                    <p class="lightshadow" id="grupoitem"><img width="15%" src="<%=s.bandeira%>"> <%=s.nome%></p>
                 <%end%>
             </div>
         <%end%>
     </div>
     <br>
     <br>
-    <h3 style="margin-bottom:15px;text-shadow: 0.5px 0.5px white;font-weight:700;color: #273746">Confederações</h3>
+    <div class="titulo">
+        <h3 class="lightshadow">Confederações</h3>
+    </div>
+    <br>
     <br>
     <%@conf.each do |c|%>
-        <div style="background-color:#34495E;padding:5px">
-            <h5 style="text-shadow: 0.5px 0.5px black;font-weight:700;color: white"><%=c.nome%>: <%=c.selecaos.size%></h5>
+        <div class="subtitulo">
+            <h5 class="lightshadow"><%=c.nome%>: <%=c.selecaos.size%></h5>
         </div>
-        <div class="row" style="border: 1px solid #34495E;width:100%;margin:auto;padding:10px">
+        <div class="row box">
             <%c.selecaos.sort_by {|n| n.nome}.each do |s|%>
                 <div class="col-sm-3">
                     <p><img width="10%" src="<%=s.bandeira%>"> <%=s.nome%></p>

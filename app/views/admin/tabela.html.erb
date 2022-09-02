@@ -1,9 +1,11 @@
 <div class="container">
-    <h1 style="text-shadow: 1px 1px white">Tabela de Jogos</h1>
+    <div class="titulo">
+        <h1 class="lightshadow">Tabela de Jogos</h1>
+    </div>
     <br>
     <br>
     <%@grupos.each do |g|%>
-        <div style="margin-bottom:15px;text-shadow: 1px 1px white">
+        <div class="lightshadow">
             <%if g.nome.length == 1%>
                 <h2>Grupo <%=g.nome%></h2>
             <%else%>
