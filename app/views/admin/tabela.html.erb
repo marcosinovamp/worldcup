@@ -5,24 +5,46 @@
     <br>
     <br>
     <%@grupos.each do |g|%>
-        <div class="lightshadow">
+        <div class="lightshadow subtitulo">
             <%if g.nome.length == 1%>
-                <h2>Grupo <%=g.nome%></h2>
+                <h4>Grupo <%=g.nome%></h4>
             <%else%>
-                <h2><%=g.nome%></h2>
+                <h4><%=g.nome%></h4>
             <%end%>
         </div>
-        <div class="row">
-            <%g.jogos.each do |j|%>
-                <div class="col-sm-6" style="text-align:center">
-                    <h6><%=j.data.strftime "%d/%m/%Y - %H:%M"%>
-                    <%if @id_selecaos.include?(j.equipe1 && j.equipe2)%>
-                        <p><%=Selecao.find(j.equipe1).nome%> x <%=Selecao.find(j.equipe2).nome%></p>
-                    <%else%>
-                        <p>A definir x A definir</p>
-                    <%end%>
-                </div>
-            <%end%>
+        <div class="jogo">
+            <div class="row">
+                <%g.jogos.each do |j|%>
+                    <div class="col-sm-6">
+                        <div class="datahora">
+                            <h6><%=j.data.strftime "%d/%m/%Y - %H:%M"%></h6>
+                        </div>
+                        <div class="equipes">
+                            <%if @id_selecaos.include?(j.equipe1 && j.equipe2)%>
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <p><img class="gflag" src="<%=Selecao.find(j.equipe1).bandeira%>"></p>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <p> <%=Selecao.find(j.equipe1).nome%></p>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <p>   x   </p>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <p><%=Selecao.find(j.equipe2).nome%></p>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <p><img class="gflag" src="<%=Selecao.find(j.equipe2).bandeira%>"></p>
+                                    </div>
+                                </div>
+                            <%else%>
+                                <p>A definir</p>
+                            <%end%>
+                        </div>
+                    </div>
+                <%end%>
+            </div>
         </div>
     <%end%>
 </div>
