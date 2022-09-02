@@ -1,11 +1,11 @@
 <div class="container">
     <div class="titulo">
-        <h1 class="lightshadow">Tabela de Jogos</h1>
+        <h1 class="darkshadow">Tabela de Jogos</h1>
     </div>
     <br>
     <br>
     <%@grupos.each do |g|%>
-        <div class="lightshadow subtitulo">
+        <div class="darkshadow subtitulo">
             <%if g.nome.length == 1%>
                 <h4>Grupo <%=g.nome%></h4>
             <%else%>
@@ -16,10 +16,10 @@
             <div class="row">
                 <%g.jogos.each do |j|%>
                     <div class="col-sm-6">
-                        <div class="datahora">
-                            <h6><%=j.data.strftime "%d/%m/%Y - %H:%M"%></h6>
+                        <div class="datahora darkshadow">
+                            <h6><%=bradate(j.data.strftime "%d/%m/%Y/%H/%M")%></h6>
                         </div>
-                        <div class="equipes">
+                        <div class="equipes lightshadow">
                             <%if @id_selecaos.include?(j.equipe1 && j.equipe2)%>
                                 <div class="row">
                                     <div class="col-sm-2">

@@ -1,5 +1,5 @@
 .lightshadow{
-    text-shadow: 0.5px 0.5px white;
+    text-shadow: 0.5px 0.5px #AAB7B8;
 }
 .darkshadow{
     text-shadow: 0.5px 0.5px black;
@@ -18,6 +18,7 @@
     margin-right:-73px;
     margin-left:-73px;
     color:white;
+    margin-top:15px;
 }
 .box{
     background-color:#F2F3F4;
@@ -70,6 +71,8 @@
 .equipes{
     background-color:white;
     padding-top:15px;
+    padding-right:7px;
+    padding-left:7px;
     line-height:350%;
     // padding:5px;
 }
