@@ -1,2 +1,75 @@
-<h1>Admin#classificacao</h1>
-<p>Find me in app/views/admin/classificacao.html.erb</p>
+<div class="container">
+    <h1 class="titulo darkshadow">Classificação Atual</h1>
+    <%@gpclass.each do |gpc|%>
+        <div class="subtitulo darkshadow">
+            <h3>Grupo <%=gpc.nome%></h3>
+        </div>
+         <div class="row">
+            <div class="col-sm-4">
+            </div>
+            <div class="col-sm-1 hdclass">
+                <h5>Pts</h5>
+            </div>
+            <div class="col-sm-1 hdclass">
+                <h5>Jgs</h5>
+            </div>
+            <div class="col-sm-1 hdclass">
+                <h5>V</h5>
+            </div>
+            <div class="col-sm-1 hdclass">
+                <h5>E</h5>
+            </div>
+            <div class="col-sm-1 hdclass">
+                <h5>D</h5>
+            </div>
+            <div class="col-sm-1 hdclass">
+                <h5>GP</h5>
+            </div>
+            <div class="col-sm-1 hdclass">
+                <h5>GC</h5>
+            </div>
+            <div class="col-sm-1 hdclass">
+                <h5>Status</h5>
+            </div>
+        </div>
+        <div style="padding-top:15px;background-color:white;margin-right:-11.5px;border: 1px solid #808B96">
+            <%gpc.selecaos.sort_by{ |t| denilizador(t.pt)*-1}.each do |sl|%>
+                <div style="text-align:center;margin-left:-15px">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <img width="30%" src="<%=sl.bandeira%>">
+                        </div>
+                        <div class="col-sm-2">
+                            <p style="text-align:left;font-size:120%"><%=sl.nome%></p>
+                        </div>
+                        <div class="col-sm-1">
+                            <%=denilizador(sl.pt)%>
+                        </div>
+                        <div class="col-sm-1">
+                            <%=denilizador(sl.jg)%>
+                        </div>
+                        <div class="col-sm-1">
+                            <%=denilizador(sl.vt)%>
+                        </div>
+                        <div class="col-sm-1">
+                            <%=denilizador(sl.ep)%>
+                        </div>
+                        <div class="col-sm-1">
+                            <%=denilizador(sl.dr)%>
+                        </div>
+                        <div class="col-sm-1">
+                            <%=denilizador(sl.gp)%>
+                        </div>
+                        <div class="col-sm-1">
+                            <%=denilizador(sl.gc)%>
+                        </div>
+                        <div class="col-sm-1">
+                            
+                        </div>
+                    </div>
+                </div>
+            <%end%>
+        </div>
+    <%end%>
+</div>
+

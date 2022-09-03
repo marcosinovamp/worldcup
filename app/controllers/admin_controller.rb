@@ -1,11 +1,11 @@
 class AdminController < ApplicationController
   def home
-    @selecaos = Selecao.all
-    @conf = Confederation.all.select {|c| c.selecaos.size > 0}
-    @grupos = Grupo.all.select {|g| g.selecaos.size > 0}
+    definições_fase_grupos
   end
 
   def classificacao
+    definições_fase_grupos
+    @gpclass = @grupos.select{|gp| gp.nome.length == 1}
   end
 
   def tabela
@@ -20,4 +20,13 @@ class AdminController < ApplicationController
 
   def estatisticas
   end
+
+  private
+
+  def definições_fase_grupos
+    @selecaos = Selecao.all
+    @conf = Confederation.all.select {|c| c.selecaos.size > 0}
+    @grupos = Grupo.all.select {|g| g.selecaos.size > 0}
+  end
+
 end
