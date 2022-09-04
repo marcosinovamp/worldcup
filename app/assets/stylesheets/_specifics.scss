@@ -102,13 +102,14 @@
 }
 .result{
     text-align:center;
-    font-size:350%;
+    font-size:300%;
     font-weight:700;
     text-shadow: 1px 1px #AAB7B8;
     img{
         vertical-align: middle;
         box-shadow: 1px 1px #34495E;
-        width:7%;
+        width:15%;
+        margin-bottom:18px;
     }
 }
 .gols{
@@ -120,6 +121,7 @@
     border-radius:5px;
     border:1px solid #34495E;
     box-shadow: 0.5px 0.5px #34495E;
+    margin-bottom:18px;
 }
 .gmbutton{
     border-radius:5px;
@@ -134,4 +136,54 @@
         color: #34495E;
         box-shadow: 1px 1px black;
     }
+}
+.gmbar{
+    background-color: #566573;
+    display:flex;
+    justify-content:space-around;
+    width:100%;
+    margin-top:-30px;
+    margin-bottom:30px;
+    height:50px;
+    font-family: 'Montserrat', sans-serif;
+    a{
+        color:white;
+        text-shadow: 0.5px 0.5px #AAB7B8;
+        text-decoration:none;
+        margin-top:13px;
+        font-weight:700;
+    }
+}
+.penaltis{
+    font-size:120%;
+    box-shadow: 1px 1px #AAB7B8;
+    background-color: #D5D8DC;
+    padding:10px;
+    padding-top:10px;
+    padding-bottom:10px;
+    img{
+        width:50px;
+    }
+}
+.pnt{
+    width:30px;
+    height:30px;
+    text-align:center;
+    font-size:20px;
+    vertical-align: middle;
+    border-radius:5px;
+    border:1px solid #34495E;
+    box-shadow: 0.5px 0.5px #34495E;
+}
+.classif{
+    background-color:green;
+    color:white;
+    font-size:80%;
+    margin-left:-15px;
+}
+.desc{
+    background-color:red;
+    color:white;
+    font-size:80%;
+    margin-left:-15px;
 }

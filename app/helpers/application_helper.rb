@@ -13,4 +13,8 @@ module ApplicationHelper
         end
         return y
     end
+
+    def projection(sel)
+        (3-sel.jg)*3
+    end
 end

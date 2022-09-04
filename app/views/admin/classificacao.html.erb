@@ -70,7 +70,16 @@
                             <%=denilizador(sl.sg)%>
                         </div>
                         <div class="col-sm-1">
-                            
+                            <%@first = gpc.selecaos.sort_by{ |t| [denilizador(t.pt)*-1, denilizador(t.sg)*-1, denilizador(t.gp)*-1]}.first%>
+                            <%@second = gpc.selecaos.sort_by{ |t| [denilizador(t.pt)*-1, denilizador(t.sg)*-1, denilizador(t.gp)*-1]}.second%>
+                            <%@third = gpc.selecaos.sort_by{ |t| [denilizador(t.pt)*-1, denilizador(t.sg)*-1, denilizador(t.gp)*-1]}.third%>
+                            <%@fourth = gpc.selecaos.sort_by{ |t| [denilizador(t.pt)*-1, denilizador(t.sg)*-1, denilizador(t.gp)*-1]}.fourth%>
+
+                            <%if sl.pt > @third.pt + projection(@third) && sl.pt > @fourth.pt + projection(@fourth)%>
+                                <p class="classif"><%="Classificado"%></p>
+                            <%elsif sl.pt + projection(sl) < @first.pt && sl.pt + projection(sl) < @second.pt%>
+                                <p class="desc"><%="Desclassificado"%></p>
+                            <%end%>
                         </div>
                     </div>
                 </div>

@@ -8,63 +8,63 @@ class Selecao < ApplicationRecord
   end
 
   def vt
+    @vct = 0
     self.jogos.map { |j|
-      @vct = 0
       if self.id == j.equipe1 && j.g1.nil? == false && j.g2.nil? == false && j.g1 > j.g2
         @vct += 1
       elsif self.id == j.equipe2 && j.g1.nil? == false && j.g2.nil? == false && j.g2 > j.g1
         @vct += 1
       end
-      return @vct
     }
+    return @vct
   end
 
   def ep
+    @ept = 0
     self.jogos.map { |j|
-      @ept = 0
       if self.id == j.equipe1 && j.g1.nil? == false && j.g2.nil? == false && j.g1 == j.g2
         @ept += 1
       elsif self.id == j.equipe2 && j.g1.nil? == false && j.g2.nil? == false && j.g2 == j.g1
         @ept += 1
       end
-      return @ept
     }
+    return @ept
   end
 
   def dr
+    @drt = 0
     self.jogos.map { |j|
-      @drt = 0
       if self.id == j.equipe1 && j.g1.nil? == false && j.g2.nil? == false && j.g1 < j.g2
         @drt += 1
       elsif self.id == j.equipe2 && j.g1.nil? == false && j.g2.nil? == false && j.g2 < j.g1
         @drt += 1
       end
-      return @drt
     }
+    return @drt
   end
 
   def gp
+    @fv = 0
     self.jogos.map { |j|
-      @fv = 0
       if self.id == j.equipe1 && j.g1.nil? == false
         @fv += j.g1
       elsif self.id == j.equipe2 && j.g2.nil? == false
         @fv += j.g2
       end
-      return @fv
     }
+    return @fv
   end
 
   def gc
+    @cnt = 0
     self.jogos.map { |j|
-      @cnt = 0
       if self.id == j.equipe1 && j.g2.nil? == false
         @cnt += j.g2
       elsif self.id == j.equipe2 && j.g1.nil? == false
         @cnt += j.g1
       end
-      return @cnt
     }
+    return @cnt
   end
 
   def pt

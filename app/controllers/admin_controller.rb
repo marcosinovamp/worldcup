@@ -28,6 +28,8 @@ class AdminController < ApplicationController
     @game = Jogo.find(params[:id])
     @game.g1 =params[:g1]
     @game.g2 = params[:g2]
+    @game.p1 = params[:p1]
+    @game.p2 = params[:p2]
     @game.save
     # @game.update(jogo_params)
     redirect_to jogos_path
