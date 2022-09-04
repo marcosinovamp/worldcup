@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_01_031720) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_03_192104) do
   create_table "confederations", force: :cascade do |t|
     t.string "nome"
     t.integer "jg"
@@ -48,13 +48,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_01_031720) do
     t.string "nome"
     t.string "continente"
     t.string "bandeira"
-    t.integer "jg"
-    t.integer "vt"
-    t.integer "ep"
-    t.integer "dr"
-    t.integer "pt"
-    t.integer "gp"
-    t.integer "gc"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "grupo_id"

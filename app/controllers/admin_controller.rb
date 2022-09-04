@@ -18,6 +18,21 @@ class AdminController < ApplicationController
     end
   end
 
+  def resultado
+    @game = Jogo.find(params[:id])
+    @sel1 = Selecao.find(@game.equipe1)
+    @sel2 = Selecao.find(@game.equipe2)
+  end
+
+  def registro
+    @game = Jogo.find(params[:id])
+    @game.g1 =params[:g1]
+    @game.g2 = params[:g2]
+    @game.save
+    # @game.update(jogo_params)
+    redirect_to jogos_path
+  end
+
   def estatisticas
   end
 
@@ -27,6 +42,12 @@ class AdminController < ApplicationController
     @selecaos = Selecao.all
     @conf = Confederation.all.select {|c| c.selecaos.size > 0}
     @grupos = Grupo.all.select {|g| g.selecaos.size > 0}
+  end
+
+  private
+
+  def jogo_params
+    params.require(:jogo).permit(:equipe1, :equipe2, :g1, :g2, :p1, :p2)
   end
 
 end

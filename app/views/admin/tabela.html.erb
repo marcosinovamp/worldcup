@@ -16,32 +16,34 @@
             <div class="row">
                 <%g.jogos.each do |j|%>
                     <div class="col-sm-6">
-                        <div class="datahora darkshadow">
-                            <h6><%=bradate(j.data.strftime "%d/%m/%Y/%H/%M")%></h6>
-                        </div>
-                        <div class="equipes lightshadow">
-                            <%if @id_selecaos.include?(j.equipe1 && j.equipe2)%>
-                                <div class="row">
-                                    <div class="col-sm-2">
-                                        <p><img class="gflag" src="<%=Selecao.find(j.equipe1).bandeira%>"></p>
+                        <a href="/resultado/<%=j.id%>">
+                            <div class="datahora darkshadow">
+                                <h6><%=bradate(j.data.strftime "%d/%m/%Y/%H/%M")%></h6>
+                            </div>
+                            <div class="equipes lightshadow">
+                                <%if @id_selecaos.include?(j.equipe1 && j.equipe2)%>
+                                    <div class="row">
+                                        <div class="col-sm-2">
+                                            <p><img class="gflag" src="<%=Selecao.find(j.equipe1).bandeira%>"></p>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <p> <%=Selecao.find(j.equipe1).nome%></p>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <p><%=j.g1 == nil ? " " : j.g1%> x <%=j.g2 == nil ? " " : j.g2%></p>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <p><%=Selecao.find(j.equipe2).nome%></p>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <p><img class="gflag" src="<%=Selecao.find(j.equipe2).bandeira%>"></p>
+                                        </div>
                                     </div>
-                                    <div class="col-sm-3">
-                                        <p> <%=Selecao.find(j.equipe1).nome%></p>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <p>   x   </p>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <p><%=Selecao.find(j.equipe2).nome%></p>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <p><img class="gflag" src="<%=Selecao.find(j.equipe2).bandeira%>"></p>
-                                    </div>
-                                </div>
-                            <%else%>
-                                <p>A definir</p>
-                            <%end%>
-                        </div>
+                                <%else%>
+                                    <p>A definir</p>
+                                <%end%>
+                            </div>
+                        </a>
                     </div>
                 <%end%>
             </div>

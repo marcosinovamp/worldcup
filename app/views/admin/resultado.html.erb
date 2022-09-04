@@ -1,0 +1,9 @@
+<div class="stdaln">
+    <h2 class="titulo">Grupo <%=@game.grupo.nome%></h2>
+    <br>
+    <form action="/registro/<%=@game.id%>">
+        <p class="result" style=""><img src="<%=@sel1.bandeira%>"> <%=@sel1.nome%> <input class="gols" type="text" id="g1" name="g1"> X <input class="gols" type="text" id="g2" name="g2"> <%=@sel2.nome%> <img src="<%=@sel2.bandeira%>"></p>
+        <br>
+        <input class="gmbutton" type="submit" value="Marcar">
+    </form>
+</div>
