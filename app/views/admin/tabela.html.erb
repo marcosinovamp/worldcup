@@ -21,7 +21,7 @@
                                 <h6><%=bradate(j.data.strftime "%d/%m/%Y/%H/%M")%></h6>
                             </div>
                             <div class="equipes lightshadow">
-                                <%if @id_selecaos.include?(j.equipe1 && j.equipe2)%>
+                                <%if @id_selecaos.include?(j.equipe1) && @id_selecaos.include?(j.equipe2)%>
                                     <div class="row">
                                         <div class="col-sm-2">
                                             <p><img class="gflag" src="<%=Selecao.find(j.equipe1).bandeira%>"></p>

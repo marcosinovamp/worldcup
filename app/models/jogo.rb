@@ -13,4 +13,49 @@ class Jogo < ApplicationRecord
     def selecao2
         Selecao.find(equipe2).nome
     end
+
+    def winner
+        if self.g1.nil? == false && self.g2.nil? == false
+            if self.g1 == self.g2
+                if self.p1.nil? == false && self.p2.nil? == false
+                    if self.p1 > self.p2
+                        return self.equipe1
+                    else
+                        return self.equipe2
+                    end
+                else
+                    return "A definir"
+                end
+            elsif self.g1 > self.g2
+                return self.equipe1
+            elsif self.g2 > self.g1
+                return self.equipe2
+            end
+        else
+            return "A definir"
+        end
+    end
+
+    def loser
+        if self.g1.nil? == false && self.g2.nil? == false
+            if self.g1 == self.g2
+                if self.p1.nil? == false && self.p2.nil? == false
+                    if self.p1 > self.p2
+                        return self.equipe2
+                    else
+                        return self.equipe1
+                    end
+                else
+                    return "A definir"
+                end
+            elsif self.g1 > self.g2
+                return self.equipe2
+            elsif self.g2 > self.g1
+                return self.equipe1
+            end
+        else
+            return "A definir"
+        end
+    end
+
 end

@@ -6,6 +6,7 @@ class AdminController < ApplicationController
   def classificacao
     definições_fase_grupos
     @gpclass = @grupos.select{|gp| gp.nome.length == 1}
+
   end
 
   def tabela
@@ -16,6 +17,13 @@ class AdminController < ApplicationController
     @selecaos.each do |s|
       @id_selecaos << s.id
     end
+    @gpclass = @grupos.select{|gp| gp.nome.length == 1}
+    @gpclass.each do |g|
+      oitavas(g)
+    end
+    quartas
+    semi
+    final
   end
 
   def resultado
@@ -31,7 +39,6 @@ class AdminController < ApplicationController
     @game.p1 = params[:p1]
     @game.p2 = params[:p2]
     @game.save
-    # @game.update(jogo_params)
     redirect_to jogos_path
   end
 
@@ -50,6 +57,99 @@ class AdminController < ApplicationController
 
   def jogo_params
     params.require(:jogo).permit(:equipe1, :equipe2, :g1, :g2, :p1, :p2)
+  end
+
+  def denilizador(x)
+    if x.nil?
+        y = 0
+    else
+        y = x
+    end
+    return y
+  end
+
+  def oitavas(grupo)
+    @sub = grupo.selecaos.sort_by{ |t| [denilizador(t.pt)*-1, denilizador(t.sg)*-1, denilizador(t.gp)*-1]}
+    if @sub.first.jg == 3 && @sub.second.jg == 3 && @sub.third.jg == 3 && @sub.fourth.jg == 3
+      @c1 = @sub.first
+      @c2 = @sub.second
+      Jogo.all.each do |j|
+        if j.equipe1 == "1#{grupo.id}0".to_i
+          j.equipe1 = @c1.id
+          j.save
+        elsif j.equipe1 == "2#{grupo.id}0".to_i
+          j.equipe1 = @c2.id
+          j.save
+        elsif j.equipe2 == "1#{grupo.id}0".to_i
+          j.equipe2 = @c1.id
+          j.save
+        elsif j.equipe2 == "2#{grupo.id}0".to_i
+          j.equipe2 = @c2.id
+          j.save
+        end
+      end
+    end
+  end
+
+  def quartas
+    Grupo.find(10).jogos.each do |j|
+      if j.equipe1 > 100
+        @in = j.equipe1 - 100
+        if Jogo.find(@in).winner != "A definir"
+          j.equipe1 = Jogo.find(@in).winner
+          j.save
+        end
+      end
+      if j.equipe2 > 100
+        @in2 = j.equipe2 - 100
+        if Jogo.find(@in2).winner != "A definir"
+          j.equipe2 = Jogo.find(@in2).winner
+          j.save
+        end
+      end
+    end
+  end
+
+  def semi
+    Grupo.find(11).jogos.each do |j|
+      if j.equipe1 > 100
+        @in = j.equipe1 - 100
+        if Jogo.find(@in).winner != "A definir"
+          j.equipe1 = Jogo.find(@in).winner
+          j.save
+        end
+      end
+      if j.equipe2 > 100
+        @in2 = j.equipe2 - 100
+        if Jogo.find(@in2).winner != "A definir"
+          j.equipe2 = Jogo.find(@in2).winner
+          j.save
+        end
+      end
+    end
+  end
+
+  def final
+    @final = Jogo.find(64)
+    @terceiro = Jogo.find(63)
+    if @final.equipe1 > 100
+      @in = @final.equipe1 - 100
+      if Jogo.find(@in).winner != "A definir"
+        @final.equipe1 = Jogo.find(@in).winner
+        @terceiro.equipe1 = Jogo.find(@in).loser
+        @final.save
+        @terceiro.save
+      end
+    end
+    if @final.equipe2 > 100
+      @in2 = @final.equipe2 - 100
+      if Jogo.find(@in2).winner != "A definir"
+        @final.equipe2 = Jogo.find(@in2).winner
+        @terceiro.equipe2 = Jogo.find(@in2).loser
+        @final.save
+        @terceiro.save
+      end
+    end
   end
 
 end
