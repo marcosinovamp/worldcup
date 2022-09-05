@@ -43,7 +43,8 @@ class AdminController < ApplicationController
   end
 
   def hoje
-    @hoje = Jogo.all.select { |j| j.data.to_date == Date.current}
+    @dia = Date.current
+    @hoje = Jogo.all.select{ |j| j.data.to_date == @dia}
   end
 
   def estatisticas

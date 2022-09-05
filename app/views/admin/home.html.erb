@@ -3,7 +3,7 @@
         <h1 class="darkshadow">Grupos</h1>
     </div>
     <br>
-    <div class="row" style="width:90%;margin:auto">
+    <div class="row row90">
         <%n = 0%>
         <%@grupos.each do |g|%>
             <%n += 1%>
@@ -12,8 +12,8 @@
         <%else%>
             <%cor = "#D6DBDF"%>
         <%end%>
-            <div class="col-sm-3 grupo" style="background-color:<%=cor%>">
-                <div class="grupotitle">
+            <div class="col-sm-3 littlebox" style="background-color:<%=cor%>">
+                <div class="titulopq">
                     <h4 class="darkshadow">Grupo <%=g.nome%></h4>
                 </div>
                 <%g.selecaos.each do |s|%>

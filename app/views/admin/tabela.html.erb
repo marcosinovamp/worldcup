@@ -2,8 +2,6 @@
     <div class="titulo">
         <h1 class="darkshadow">Tabela de Jogos</h1>
     </div>
-    <br>
-    <br>
     <%@grupos.each do |g|%>
         <div class="darkshadow subtitulo">
             <%if g.nome.length == 1%>
@@ -16,7 +14,7 @@
             <div class="row">
                 <%g.jogos.each do |j|%>
                     <div class="col-sm-6">
-                        <a href="/resultado/<%=j.id%>">
+                        <a class="link_jg" href="/resultado/<%=j.id%>">
                             <div class="datahora darkshadow">
                                 <h6><%=bradate(j.data.strftime "%d/%m/%Y/%H/%M")%></h6>
                             </div>
