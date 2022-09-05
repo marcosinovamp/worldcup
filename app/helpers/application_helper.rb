@@ -5,6 +5,11 @@ module ApplicationHelper
         return "#{parts[0]} de #{months[parts[1].to_i]} de #{parts[2]} às #{parts[3]}:#{parts[4]}"
     end
 
+    def horario(data)
+        parts = data.to_s.split('/')
+        return "#{parts[3]}:#{parts[4]}h"
+    end
+    
     def denilizador(x)
         if x.nil?
             y = 0

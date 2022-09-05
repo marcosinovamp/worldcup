@@ -1,0 +1,12 @@
+<h1 class="titulo">Hoje:</h1>
+<br>
+<%if @hoje.empty?%>
+    <div class="result">Sem jogos hoje!</div>
+    <h1 style="font-size:1550%;color:#34495E"><i class="fa-solid fa-face-sad-cry"></i></h1>
+<%else%>
+    <%@hoje.each do |h|%>
+        <h3 style="font-weight:700;color:red;text-shadow:0.5px 0.5px black"><%=horario(h.data.strftime "%d/%m/%Y/%H/%M")%></h3>
+        <div class="result"><a style="text-decoration:none;color:inherit" href="/resultado/<%=h.id%>"><img style="width:5%" src="<%=Selecao.find(h.equipe1).bandeira%>"> <%=Selecao.find(h.equipe1).nome%> x <%=Selecao.find(h.equipe2).nome%> <img style="width:5%" src="<%=Selecao.find(h.equipe2).bandeira%>"></a></div>
+        <br>
+    <%end%>
+<%end%>

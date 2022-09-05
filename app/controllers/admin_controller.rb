@@ -42,6 +42,10 @@ class AdminController < ApplicationController
     redirect_to jogos_path
   end
 
+  def hoje
+    @hoje = Jogo.all.select { |j| j.data.to_date == Date.current}
+  end
+
   def estatisticas
   end
 
