@@ -48,6 +48,27 @@ class AdminController < ApplicationController
   end
 
   def estatisticas
+    definições_fase_grupos
+    @finals = []
+    @semi = []
+    @quartas = []
+    @oitavas =[]
+    Grupo.find(12).jogos.each do |j|
+      @finals << j.equipe1
+      @finals << j.equipe2
+    end
+    Grupo.find(11).jogos.each do |j|
+      @semi << j.equipe1
+      @semi << j.equipe2
+    end
+    Grupo.find(10).jogos.each do |j|
+      @quartas << j.equipe1
+      @quartas << j.equipe2
+    end
+    Grupo.find(9).jogos.each do |j|
+      @oitavas << j.equipe1
+      @oitavas << j.equipe2
+    end
   end
 
   private

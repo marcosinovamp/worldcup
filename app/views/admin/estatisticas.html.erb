@@ -1,2 +1,86 @@
-<h1>Admin#estatisticas</h1>
-<p>Find me in app/views/admin/estatisticas.html.erb</p>
+<div class="container">
+    <h1 class="titulo">Classificação Geral</h1>
+    <br>
+    <div class="row">
+        <div class="col-sm-3">
+        </div>
+        <div class="col-sm-1 hdclass darkshadow">
+            <h5>Pts</h5>
+        </div>
+        <div class="col-sm-1 hdclass darkshadow">
+            <h5>Jgs</h5>
+        </div>
+        <div class="col-sm-1 hdclass darkshadow">
+            <h5>V</h5>
+        </div>
+        <div class="col-sm-1 hdclass darkshadow">
+            <h5>E</h5>
+        </div>
+        <div class="col-sm-1 hdclass darkshadow">
+            <h5>D</h5>
+        </div>
+        <div class="col-sm-1 hdclass darkshadow">
+            <h5>GP</h5>
+        </div>
+        <div class="col-sm-1 hdclass darkshadow">
+            <h5>GC</h5>
+        </div>
+        <div class="col-sm-1 hdclass darkshadow">
+            <h5>SG</h5>
+        </div>
+        <div class="col-sm-1 hdclass darkshadow">
+            <h5>Status</h5>
+        </div>
+    </div>
+    <div class="placar">
+        <%@selecaos.sort_by{ |t| [denilizador(t.pt)*-1, denilizador(t.sg)*-1, denilizador(t.gp)*-1, t.nome]}.each do |sl|%>
+            <div class="placar_line">
+                <div class="row">
+                    <div class="col-sm-1">
+                        <img src="<%=sl.bandeira%>">
+                    </div>
+                    <div class="col-sm-2">
+                        <p><%=sl.nome%></p>
+                    </div>
+                    <div class="col-sm-1">
+                        <%=denilizador(sl.pt)%>
+                    </div>
+                    <div class="col-sm-1">
+                        <%=denilizador(sl.jg)%>
+                    </div>
+                    <div class="col-sm-1">
+                        <%=denilizador(sl.vt)%>
+                    </div>
+                    <div class="col-sm-1">
+                        <%=denilizador(sl.ep)%>
+                    </div>
+                    <div class="col-sm-1">
+                        <%=denilizador(sl.dr)%>
+                    </div>
+                    <div class="col-sm-1">
+                        <%=denilizador(sl.gp)%>
+                    </div>
+                    <div class="col-sm-1">
+                        <%=denilizador(sl.gc)%>
+                    </div>
+                    <div class="col-sm-1">
+                        <%=denilizador(sl.sg)%>
+                    </div>
+                    <div class="col-sm-1">
+                        <%if @finals.include?(sl.id)%>
+                            <p class="status">Finais</p>
+                        <%elsif @semi.include?(sl.id)%>
+                            <p class="status">Semifinais</p>
+                        <%elsif @quartas.include?(sl.id)%>
+                            <p class="status">Quartas</p>
+                        <%elsif @oitavas.include?(sl.id)%>
+                            <p class="status">Oitavas</p>
+                        <%else%>
+                            <p class="status">Grupos</p>
+                        <%end%>
+                    </div>
+                </div>
+            </div>
+        <%end%>
+    </div>
+</div>
