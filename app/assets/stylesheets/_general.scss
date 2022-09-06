@@ -1,3 +1,12 @@
+$darkblue: #34495E;
+$lightblue: #2980B9;
+$darkgrey: #566573;
+$chumbo: #808B96;
+$steel: #7F8C8D;
+$lightgrey:#AAB7B8;
+$silver: #D5D8DC;
+$whitegrey: #F2F3F4;
+
 body{
     background-color: beige;
     font-family: 'Cabin', sans-serif;
@@ -7,7 +16,17 @@ body{
 h1, h2, h3, h4, h5{
     text-align:center;
 }
-nav{
-    margin-top:-35px;
-    margin-bottom:30px;
+a{
+    text-decoration:none;
+    color: inherit;
+    &:hover{
+        font-size:95%;
+        color: $steel;
+    }
+}
+.lightshadow{
+    text-shadow: 0.5px 0.5px $lightgrey;
+}
+.darkshadow{
+    text-shadow: 0.5px 0.5px black;
 }

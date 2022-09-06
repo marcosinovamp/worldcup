@@ -22,4 +22,19 @@ module ApplicationHelper
     def projection(sel)
         (3-sel.jg)*3
     end
+
+    def explainer(game)
+        groups = {1=>"A", 2=>"B", 3=>"C", 4=>"D", 5=>"E", 6=>"F", 7=>"G", 8=>"H"}
+        team1 = game.equipe1.to_s.split("")
+        team2 = game.equipe2.to_s.split("")
+        if game.grupo_id == 9
+            return "#{team1[0]}° do grupo #{groups[team1[1].to_i]} x #{team2[0]}° do grupo #{groups[team2[1].to_i]}"
+        else
+            if team1[0] == "1"
+                return "Vencedor do jogo ##{team1[1]}#{team1[2]} x Vencedor do jogo ##{team2[1]}#{team2[2]}"
+            else
+                return "Perdedor do jogo ##{team1[1]}#{team1[2]} x Perdedor do jogo ##{team2[1]}#{team2[2]}"
+            end
+        end
+    end
 end

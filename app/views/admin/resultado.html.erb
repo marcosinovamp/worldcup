@@ -1,8 +1,10 @@
 <div class="stdaln">
     <h2 class="titulo">Grupo <%=@game.grupo.nome%></h2>
-    <br>
     <div class="container">
         <form action="/registro/<%=@game.id%>">
+            <h3 id="gamenumber" class="lightshadow">Jogo #<%=@game.id%></h3>
+            <br>
+            <br>
             <div class="row result">
                 <div class="col-sm-5">
                     <p><img src="<%=@sel1.bandeira%>"> <%=@sel1.nome%></p>
@@ -17,16 +19,16 @@
             <br>
             <div class="penaltis">
                 <div class="row">
-                    <div class="col-sm-4" style="background-color:beige !important;margin-top:-20px">
+                    <div class="col-sm-4 pnt_bg pnt_top">
                     </div>
                     <div class="col-sm-4">
                         <p>Pênaltis?</p>
                     </div>
-                    <div class="col-sm-4" style="background-color:beige !important;margin-top:-20px">
+                    <div class="col-sm-4 pnt_bg pnt_top">
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-4" style="background-color:beige !important;margin-bottom:-20px">
+                    <div class="col-sm-4 pnt_bg pnt_bottom">
                     </div>
                     <div class="col-sm-1">
                         <img src="<%=@sel1.bandeira%>">
@@ -37,7 +39,7 @@
                     <div class="col-sm-1">
                         <img src="<%=@sel2.bandeira%>">
                     </div>
-                    <div class="col-sm-4" style="background-color:beige !important;margin-bottom:-20px">
+                    <div class="col-sm-4 pnt_bg pnt_bottom">
                     </div>
                 </div>
             </div>

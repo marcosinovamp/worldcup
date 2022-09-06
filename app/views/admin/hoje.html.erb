@@ -12,8 +12,8 @@
     <h1 class="icon_hj"><i class="fa-solid fa-face-sad-cry"></i></h1>
 <%else%>
     <%@hoje.each do |h|%>
-        <h3 class="hora_hj"><%=horario(h.data.strftime "%d/%m/%Y/%H/%M")%></h3>
-        <div class="result"><a class="link_jg" href="/resultado/<%=h.id%>"><img style="width:5%" src="<%=Selecao.find(h.equipe1).bandeira%>"> <%=Selecao.find(h.equipe1).nome%> x <%=Selecao.find(h.equipe2).nome%> <img style="width:5%" src="<%=Selecao.find(h.equipe2).bandeira%>"></a></div>
+        <h3 class="hora_hj darkshadow"><%=horario(h.data.strftime "%d/%m/%Y/%H/%M")%></h3>
+        <div class="result"><a href="/resultado/<%=h.id%>"><img style="width:5%" src="<%=Selecao.find(h.equipe1).bandeira%>"> <%=Selecao.find(h.equipe1).nome%> x <%=Selecao.find(h.equipe2).nome%> <img style="width:5%" src="<%=Selecao.find(h.equipe2).bandeira%>"></a></div>
         <br>
     <%end%>
 <%end%>

@@ -1,14 +1,21 @@
-.lightshadow{
-    text-shadow: 0.5px 0.5px #AAB7B8;
+#adef{
+    font-size:80%;
+    text-align:left;
+    margin-bottom:0px;
+    padding-bottom:0px;
 }
-.darkshadow{
-    text-shadow: 0.5px 0.5px black;
+
+#gamenumber{
+    font-size:250%;
+    color: $darkblue;
+    font-weight:700;
 }
+
 #grupoitem{
     padding-left:27.5%;
     margin-bottom:3px;
     font-weight:700;
-    color:#283747;
+    color:$darkblue;
 }
 .jogo{
     p{
@@ -17,12 +24,14 @@
     }
 }
 .datahora{
-    background-color: #2980B9;
+    background-color: $lightblue;
     padding:5px;
     padding-bottom:1px;
     text-align:left !important;
     color:white;
     margin-top:5px;
+    display:flex;
+    justify-content:space-between;
 }
 .equipes{
     background-color:white;
@@ -35,16 +44,14 @@
     width:100%;
 }
 .hdclass{
-    background-color: #808B96;
+    background-color: $chumbo;
     color:white;
-    text-shadow: 0.5px 0.5px black;
     margin-top:5px;
     padding-top:5px;
     padding-left:5px;
 }
 .nohdclass{
     background-color: white;
-    text-shadow: 0.5px 0.5px black;
     margin-top:5px;
     padding-top:5px;
 }
@@ -56,10 +63,10 @@
     text-align:center;
     font-size:300%;
     font-weight:700;
-    text-shadow: 1px 1px #AAB7B8;
+    text-shadow: 1px 1px $lightgrey;
     img{
         vertical-align: middle;
-        box-shadow: 1px 1px #34495E;
+        box-shadow: 1px 1px $darkblue;
         width:15%;
         margin-bottom:18px;
     }
@@ -71,28 +78,28 @@
     font-size:30px;
     vertical-align: middle;
     border-radius:5px;
-    border:1px solid #34495E;
-    box-shadow: 0.5px 0.5px #34495E;
+    border:1px solid $darkblue;
+    box-shadow: 0.5px 0.5px $darkblue;
     margin-bottom:18px;
 }
 .gmbutton{
     border-radius:5px;
-    background-color: #34495E;
+    background-color: $darkblue;
     color:white;
     border:none;
-    box-shadow: 1px 1px #AAB7B8;
+    box-shadow: 1px 1px $lightgrey;
     font-size:130%;
     padding:5px;
     &:hover{
         background-color:white;
-        color: #34495E;
+        color: $darkblue;
         box-shadow: 1px 1px black;
     }
 }
 .penaltis{
     font-size:120%;
-    box-shadow: 1px 1px #AAB7B8;
-    background-color: #D5D8DC;
+    box-shadow: 1px 1px $lightgrey;
+    background-color: $silver;
     padding:10px;
     padding-top:10px;
     padding-bottom:10px;
@@ -107,8 +114,8 @@
     font-size:20px;
     vertical-align: middle;
     border-radius:5px;
-    border:1px solid #34495E;
-    box-shadow: 0.5px 0.5px #34495E;
+    border:1px solid $darkblue;
+    box-shadow: 0.5px 0.5px $darkblue;
 }
 .classif{
     background-color:green;
@@ -124,19 +131,19 @@
 }
 .icon_hj{
     font-size:1550%;
-    color:#34495E;
-    text-shadow:2px 2px #AAB7B8
+    color:$darkblue;
+    text-shadow:2px 2px $lightgrey;
 }
 .hora_hj{
     font-weight:700;
     color:red;
-    text-shadow:0.5px 0.5px black
 }
-.link_jg{
-    text-decoration:none;
-    color: inherit;
-    &:hover{
-        font-size:95%;
-        color: #7F8C8D;
-    }
+.pnt_bg{
+    background-color:beige !important;
+}
+.pnt_top{
+    margin-top:-20px;
+}
+.pnt_bottom{
+    margin-bottom:-20px;
 }

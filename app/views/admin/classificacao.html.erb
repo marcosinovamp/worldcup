@@ -7,43 +7,43 @@
          <div class="row">
             <div class="col-sm-3">
             </div>
-            <div class="col-sm-1 hdclass">
+            <div class="col-sm-1 hdclass darkshadow">
                 <h5>Pts</h5>
             </div>
-            <div class="col-sm-1 hdclass">
+            <div class="col-sm-1 hdclass darkshadow">
                 <h5>Jgs</h5>
             </div>
-            <div class="col-sm-1 hdclass">
+            <div class="col-sm-1 hdclass darkshadow">
                 <h5>V</h5>
             </div>
-            <div class="col-sm-1 hdclass">
+            <div class="col-sm-1 hdclass darkshadow">
                 <h5>E</h5>
             </div>
-            <div class="col-sm-1 hdclass">
+            <div class="col-sm-1 hdclass darkshadow">
                 <h5>D</h5>
             </div>
-            <div class="col-sm-1 hdclass">
+            <div class="col-sm-1 hdclass darkshadow">
                 <h5>GP</h5>
             </div>
-            <div class="col-sm-1 hdclass">
+            <div class="col-sm-1 hdclass darkshadow">
                 <h5>GC</h5>
             </div>
-            <div class="col-sm-1 hdclass">
+            <div class="col-sm-1 hdclass darkshadow">
                 <h5>SG</h5>
             </div>
-            <div class="col-sm-1 hdclass">
+            <div class="col-sm-1 hdclass darkshadow">
                 <h5>Status</h5>
             </div>
         </div>
-        <div style="padding-top:15px;padding-left:10px;background-color:white;margin-right:-11.5px;border: 1px solid #808B96">
+        <div class="placar">
             <%gpc.selecaos.sort_by{ |t| [denilizador(t.pt)*-1, denilizador(t.sg)*-1, denilizador(t.gp)*-1]}.each do |sl|%>
-                <div style="text-align:center;margin-left:-15px">
+                <div class="placar_line">
                     <div class="row">
                         <div class="col-sm-1">
-                            <img width="60%" src="<%=sl.bandeira%>">
+                            <img src="<%=sl.bandeira%>">
                         </div>
                         <div class="col-sm-2">
-                            <p style="text-align:left;font-size:120%"><%=sl.nome%></p>
+                            <p><%=sl.nome%></p>
                         </div>
                         <div class="col-sm-1">
                             <%=denilizador(sl.pt)%>

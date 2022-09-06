@@ -14,9 +14,13 @@
             <div class="row">
                 <%g.jogos.each do |j|%>
                     <div class="col-sm-6">
-                        <a class="link_jg" href="/resultado/<%=j.id%>">
+                        <%if j.grupo_id > 8%>
+                            <p id="adef"><%=explainer(Jogo.find(j.id))%></p>
+                        <%end%>
+                        <a href="/resultado/<%=j.id%>">
                             <div class="datahora darkshadow">
                                 <h6><%=bradate(j.data.strftime "%d/%m/%Y/%H/%M")%></h6>
+                                <h6>#<%=j.id%></h6>
                             </div>
                             <div class="equipes lightshadow">
                                 <%if @id_selecaos.include?(j.equipe1) && @id_selecaos.include?(j.equipe2)%>
