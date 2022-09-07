@@ -10,16 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_03_192104) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_07_042408) do
   create_table "confederations", force: :cascade do |t|
     t.string "nome"
-    t.integer "jg"
-    t.integer "pt"
-    t.integer "vt"
-    t.integer "ep"
-    t.integer "dr"
-    t.integer "gp"
-    t.integer "gc"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -54,6 +47,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_03_192104) do
     t.integer "confederation_id"
     t.index ["confederation_id"], name: "index_selecaos_on_confederation_id"
     t.index ["grupo_id"], name: "index_selecaos_on_grupo_id"
+  end
+
+  create_table "treinadors", force: :cascade do |t|
+    t.string "nome"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "selecao_id"
+    t.index ["selecao_id"], name: "index_treinadors_on_selecao_id"
   end
 
 end
