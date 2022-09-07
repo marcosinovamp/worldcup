@@ -3,6 +3,7 @@ class Selecao < ApplicationRecord
   belongs_to :confederation
   has_many :jogos
   has_one :treinador
+  has_many :jogadors
   
   def jogos
     Jogo.all.select{|j| j.equipe1 == self.id || j.equipe2 == self.id}

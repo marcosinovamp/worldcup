@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  nome: MyString
+  posicao: MyString
+  status: MyString
+  gols: 1
+  yellow: 1
+  red: 1
+  age: 1
+  number: 1
+
+two:
+  nome: MyString
+  posicao: MyString
+  status: MyString
+  gols: 1
+  yellow: 1
+  red: 1
+  age: 1
+  number: 1

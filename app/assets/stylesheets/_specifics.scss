@@ -8,7 +8,7 @@
 
 #gamenumber{
     font-size:250%;
-    color: $darkblue;
+    color: #34495E;
     font-weight:700;
 }
 
@@ -16,15 +16,15 @@
     padding-left:27.5%;
     margin-bottom:3px;
     font-weight:700;
-    color:$darkblue;
+    color:#34495E;
 }
 
 #dtl_sel{
     padding-top:20px;
     h2{
         font-weight:600;
-        color:$darkblue;
-        text-shadow: 1px 1px $lightgrey;
+        color:#34495E;
+        text-shadow: 1px 1px #AAB7B8;
         margin-bottom:15px;
     }
     p{
@@ -39,7 +39,7 @@
     }
 }
 .datahora{
-    background-color: $lightblue;
+    background-color: #2980B9;
     padding:5px;
     padding-bottom:1px;
     text-align:left !important;
@@ -59,7 +59,7 @@
     width:100%;
 }
 .hdclass{
-    background-color: $chumbo;
+    background-color: #808B96;
     color:white;
     margin-top:5px;
     padding-top:5px;
@@ -78,10 +78,10 @@
     text-align:center;
     font-size:300%;
     font-weight:700;
-    text-shadow: 1px 1px $lightgrey;
+    text-shadow: 1px 1px #AAB7B8;
     img{
         vertical-align: middle;
-        box-shadow: 1px 1px $darkblue;
+        box-shadow: 1px 1px #34495E;
         width:15%;
         margin-bottom:18px;
     }
@@ -93,28 +93,28 @@
     font-size:30px;
     vertical-align: middle;
     border-radius:5px;
-    border:1px solid $darkblue;
-    box-shadow: 0.5px 0.5px $darkblue;
+    border:1px solid #34495E;
+    box-shadow: 0.5px 0.5px #34495E;
     margin-bottom:18px;
 }
 .gmbutton{
     border-radius:5px;
-    background-color: $darkblue;
+    background-color: #34495E;
     color:white;
     border:none;
-    box-shadow: 1px 1px $lightgrey;
+    box-shadow: 1px 1px #AAB7B8;
     font-size:130%;
     padding:5px;
     &:hover{
         background-color:white;
-        color: $darkblue;
+        color: #34495E;
         box-shadow: 1px 1px black;
     }
 }
 .penaltis{
     font-size:120%;
-    box-shadow: 1px 1px $lightgrey;
-    background-color: $silver;
+    box-shadow: 1px 1px #AAB7B8;
+    background-color: #D5D8DC;
     padding:10px;
     padding-top:10px;
     padding-bottom:10px;
@@ -129,8 +129,8 @@
     font-size:20px;
     vertical-align: middle;
     border-radius:5px;
-    border:1px solid $darkblue;
-    box-shadow: 0.5px 0.5px $darkblue;
+    border:1px solid #34495E;
+    box-shadow: 0.5px 0.5px #34495E;
 }
 .classif{
     background-color:green;
@@ -146,8 +146,8 @@
 }
 .icon_hj{
     font-size:1550%;
-    color:$darkblue;
-    text-shadow:2px 2px $lightgrey;
+    color:#34495E;
+    text-shadow:2px 2px #AAB7B8;
 }
 .hora_hj{
     font-weight:700;

@@ -1,5 +1,5 @@
 .barra_nav{
-    background-color:$darkgrey;
+    background-color:#566573;
     display:flex;
     justify-content:space-around;
     width:100%;
@@ -9,14 +9,14 @@
     font-family: 'Montserrat', sans-serif;
     a{
         color:white;
-        text-shadow: 0.5px 0.5px $lightgrey;
+        text-shadow: 0.5px 0.5px #AAB7B8;
         text-decoration:none;
         margin-top:13px;
         font-weight:700;
     }
 }
 .titulo{
-    background-color:$darkblue;
+    background-color:#34495E;
     padding: 10px;
     margin-right:-73px;
     margin-left:-73px;
@@ -24,7 +24,7 @@
     color:white;
 }
 .subtitulo{
-    background-color:$darkblue;
+    background-color:#34495E;
     padding: 10px;
     margin-right:-73px;
     margin-left:-73px;
@@ -32,8 +32,8 @@
     margin-top:15px;
 }
 .box{
-    background-color:$whitegrey;
-    border: 1px solid $darkblue;
+    background-color:#F2F3F4;
+    border: 1px solid #34495E;
     margin-right:-73px;
     margin-left:-73px;
     padding:20px;
@@ -53,7 +53,7 @@
     border: 2px solid beige;
 }
 .titulopq{
-    background-color:$darkblue;
+    background-color:#34495E;
     margin-bottom:10px;
     margin-left:-20px;
     margin-right:-15px;
@@ -66,7 +66,7 @@
     padding-left:10px;
     background-color:white;
     margin-right:-11.5px;
-    border: 1px solid $chumbo;
+    border: 1px solid #808B96;
 }
 .placar_line{
     text-align:center;

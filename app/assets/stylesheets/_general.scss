@@ -1,12 +1,3 @@
-$darkblue: #34495E;
-$lightblue: #2980B9;
-$darkgrey: #566573;
-$chumbo: #808B96;
-$steel: #7F8C8D;
-$lightgrey:#AAB7B8;
-$silver: #D5D8DC;
-$whitegrey: #F2F3F4;
-
 body{
     background-color: beige;
     font-family: 'Cabin', sans-serif;
@@ -21,11 +12,11 @@ a{
     color: inherit;
     &:hover{
         font-size:95%;
-        color: $steel;
+        color: #7F8C8D;
     }
 }
 .lightshadow{
-    text-shadow: 0.5px 0.5px $lightgrey;
+    text-shadow: 0.5px 0.5px #AAB7B8;
 }
 .darkshadow{
     text-shadow: 0.5px 0.5px black;

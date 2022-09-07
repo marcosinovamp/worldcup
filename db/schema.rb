@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_07_042408) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_07_151620) do
   create_table "confederations", force: :cascade do |t|
     t.string "nome"
     t.datetime "created_at", null: false
@@ -21,6 +21,21 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_07_042408) do
     t.string "nome"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "jogadors", force: :cascade do |t|
+    t.string "nome"
+    t.string "posicao"
+    t.string "status"
+    t.integer "gols"
+    t.integer "yellow"
+    t.integer "red"
+    t.integer "age"
+    t.integer "number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "selecao_id"
+    t.index ["selecao_id"], name: "index_jogadors_on_selecao_id"
   end
 
   create_table "jogos", force: :cascade do |t|
