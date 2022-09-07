@@ -42,6 +42,10 @@ class AdminController < ApplicationController
     redirect_to jogos_path
   end
 
+  def selecao
+    @selecao = Selecao.find(params[:id])
+  end
+
   def hoje
     @dia = Date.current
     @hoje = Jogo.all.select{ |j| j.data.to_date == @dia}

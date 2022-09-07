@@ -1,0 +1,38 @@
+<div class="container">
+    <div class="flag_titulo nomargin" style="background-image:url(<%=@selecao.bandeira%>);background-size:contain">
+        <%@selecao.nome.upcase.split("").each do |l|%>
+            <h1><%=l%></h1>
+        <%end%>
+    </div>
+    <div class="row nomargin whitecanvas" id="dtl_sel">
+        <div class="col-sm-6">
+            <h2>Jogos confirmados até o momento</h2>
+            <%@selecao.jogos.each do |g|%>
+                <p style="text-align:center"><%=bradate(g.data.strftime "%d/%m/%Y/%H/%M")%> - <%="#{Selecao.find(g.equipe1).nome} x #{Selecao.find(g.equipe2).nome}"%></p>
+            <%end%>
+        </div>
+        <div class="col-sm-6">
+            <h2>Jogadores</h2>
+        </div>
+    </div>
+    <div class="nomargin whitecanvas" id="dtl_sel">
+        <h2>Estatísticas</h2>
+        <div style="margin-left:40px">
+            <%if @selecao.jg != 0%>
+                <p>Média de gols a favor: <%=@selecao.gp/@selecao.jg%></p>
+            <%else%>
+                <p>Média de gols a favor: 0</p>
+            <%end%>
+            <%if @selecao.jg != 0%>
+                <p>Média de gols contra: <%=@selecao.gc/@selecao.jg%></p>
+            <%else%>
+                <p>Média de gols contra: 0</p>
+            <%end%>
+            <%if @selecao.jg != 0%>
+                <p>Média de pontos por jogo: <%=@selecao.pt/@selecao.jg%></p>
+            <%else%>
+                <p>Média de pontos por jogo: 0</p>
+            <%end%>
+        </div>
+    </div>
+</div>

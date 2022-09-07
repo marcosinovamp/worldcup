@@ -7,13 +7,13 @@
             <br>
             <div class="row result">
                 <div class="col-sm-5">
-                    <p><img src="<%=@sel1.bandeira%>"> <%=@sel1.nome%></p>
+                    <a href="/selecao/<%=@sel1.id%>"><p><img src="<%=@sel1.bandeira%>"> <%=@sel1.nome%></p></a>
                 </div>
                 <div class="col-sm-2">
                     <p><input class="gols" type="text" id="g1" name="g1"> X <input class="gols" type="text" id="g2" name="g2"></p>
                 </div>
                 <div class="col-sm-5">
-                    <p><%=@sel2.nome%> <img src="<%=@sel2.bandeira%>"></p>
+                    <a href="/selecao/<%=@sel2.id%>"><p><%=@sel2.nome%> <img src="<%=@sel2.bandeira%>"></p></a>
                 </div>
             </div>
             <br>

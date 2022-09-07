@@ -17,7 +17,7 @@
                     <h4 class="darkshadow">Grupo <%=g.nome%></h4>
                 </div>
                 <%g.selecaos.each do |s|%>
-                    <p class="lightshadow" id="grupoitem"><img width="15%" src="<%=s.bandeira%>"> <%=s.nome%></p>
+                    <p class="lightshadow" id="grupoitem"><a href="/selecao/<%=s.id%>"><img width="15%" src="<%=s.bandeira%>"> <%=s.nome%></p></a>
                 <%end%>
             </div>
         <%end%>
@@ -36,7 +36,7 @@
         <div class="row box lightshadow">
             <%c.selecaos.sort_by {|n| n.nome}.each do |s|%>
                 <div class="col-sm-3">
-                    <p><img width="10%" src="<%=s.bandeira%>"> <%=s.nome%></p>
+                    <a href="/selecao/<%=s.id%>"><p><img width="10%" src="<%=s.bandeira%>"> <%=s.nome%></p></a>
                 </div>
             <%end%>
         </div>

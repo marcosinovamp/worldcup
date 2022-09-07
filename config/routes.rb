@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get 'registro/:id', to: 'admin#registro'
   get 'estatisticas', to: 'admin#estatisticas'
   get 'hoje', to: 'admin#hoje'
+  get 'selecao/:id', to: 'admin#selecao'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
