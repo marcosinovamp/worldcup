@@ -1,6 +1,8 @@
 class Jogo < ApplicationRecord
     belongs_to :grupo
     has_many :selecaos
+    has_many :yellow_cards
+    has_many :red_cards
 
     def selecaos
         [Selecao.find(equipe1).nome, Selecao.find(equipe2).nome]

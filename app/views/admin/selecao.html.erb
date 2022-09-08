@@ -6,29 +6,63 @@
     </div>
     <div class="row nomargin whitecanvas" id="dtl_sel">
         <div class="col-sm-6">
-            <h2>Jogos confirmados até o momento</h2>
-            <%@selecao.jogos.each do |g|%>
-                <p style="text-align:center"><%=bradate(g.data.strftime "%d/%m/%Y/%H/%M")%> - <%="#{Selecao.find(g.equipe1).nome} x #{Selecao.find(g.equipe2).nome}"%></p>
-            <%end%>
-             <h2>Estatísticas</h2>
+            <h2 class="selecao_title">Jogos confirmados até o momento</h2>
+            <div class="row">
+                <div class="col-sm-1">
+                </div>
+                <div class="col-sm-6 hdclass centered">
+                    <h6>Data</h6>
+                </div>
+                <div class="col-sm-4 hdclass centered">
+                    <h6>Jogo</h6>
+                </div>
+                <div class="col-sm-1">
+                </div>
+            </div>
+            <div class="row">
+                <%n=0%>
+                <%@selecao.jogos.each do |g|%>
+                    <%n += 1%>
+                    <%if n.even?%>
+                        <%color="#EEEEEE"%>
+                    <%else%>
+                        <%color="#E0E0E0"%>
+                    <%end%>
+                    <div class="col-sm-1">
+                    </div>
+                    <div style="background-color:<%=color%>" class="col-sm-6 centered downzero">
+                        <p><%=bradate(g.data.strftime "%d/%m/%Y/%H/%M")%></p>
+                    </div>
+                    <div style="background-color:<%=color%>" class="col-sm-4 centered downzero">
+                        <p><%="#{Selecao.find(g.equipe1).nome} x #{Selecao.find(g.equipe2).nome}"%></p>
+                    </div>
+                    <div class="col-sm-1">
+                    </div>  
+                <%end%>
+            </div>
+            <br>
+            <br>
+             <h2 class="selecao_title">Estatísticas</h2>
+             <div class="centered statbox">
                 <%if @selecao.jg != 0%>
-                    <p style="text-align:center">Média de gols a favor: <%=@selecao.gp/@selecao.jg%></p>
+                    <p>Média de gols a favor: <%=@selecao.gp/@selecao.jg%></p>
                 <%else%>
-                    <p style="text-align:center">Média de gols a favor: 0</p>
+                    <p>Média de gols a favor: 0</p>
                 <%end%>
                 <%if @selecao.jg != 0%>
-                    <p style="text-align:center">Média de gols contra: <%=@selecao.gc/@selecao.jg%></p>
+                    <p>Média de gols contra: <%=@selecao.gc/@selecao.jg%></p>
                 <%else%>
-                    <p style="text-align:center">Média de gols contra: 0</p>
+                    <p>Média de gols contra: 0</p>
                 <%end%>
                 <%if @selecao.jg != 0%>
-                    <p style="text-align:center">Média de pontos por jogo: <%=@selecao.pt/@selecao.jg%></p>
+                    <p>Média de pontos por jogo: <%=@selecao.pt/@selecao.jg%></p>
                 <%else%>
-                    <p style="text-align:center">Média de pontos por jogo: 0</p>
+                    <p>Média de pontos por jogo: 0</p>
                 <%end%>
+            </div>
         </div>
         <div class="col-sm-6 playerlist">
-            <h2>Jogadores</h2>
+            <h2 class="selecao_title">Jogadores</h2>
             <div class="row">
                 <div class="col-sm-1 hdclass">
                    <h6>N°</h6>
@@ -54,26 +88,32 @@
             </div>
             <div class="row">    
                 <%@selecao.jogadors.sort_by{|x| x.number}.each do |j|%>
-                    <div class="col-sm-1 players">
+                    <%n += 1%>
+                   <%if n.even?%>
+                        <%color="#EEEEEE"%>
+                    <%else%>
+                        <%color="#E0E0E0"%>
+                    <%end%>
+                    <div style="background-color:<%=color%>" class="col-sm-1 downzero">
                         <p><%=j.number%>.</p> 
                     </div>
-                    <div class="col-sm-4 players">
+                    <div style="background-color:<%=color%>" class="col-sm-4 downzero">
                         <p><%=j.nome%></p>
                     </div>
-                    <div class="col-sm-3 players">
+                    <div style="background-color:<%=color%>" class="col-sm-3 downzero">
                         <p><%=j.posicao%></p>
                     </div>
-                    <div class="col-sm-1 players">
+                    <div style="background-color:<%=color%>" class="col-sm-1 downzero">
                         <p><%=denilizador(j.gols)%></p>
                     </div>
-                    <div class="col-sm-1 players">
+                    <div style="background-color:<%=color%>" class="col-sm-1 downzero">
                         <p><%=denilizador(j.foul)%></p>
                     </div>
-                    <div class="col-sm-1 players">
-                        <p><%=denilizador(j.yellow)%></p>
+                    <div style="background-color:<%=color%>" class="col-sm-1 downzero">
+                        <p><%=denilizador(j.yellow_cards.size)%></p>
                     </div>
-                    <div class="col-sm-1 players">
-                        <p><%=denilizador(j.red)%></p>
+                    <div style="background-color:<%=color%>" class="col-sm-1 downzero">
+                        <p><%=denilizador(j.red_cards.size)%></p>
                     </div>
                 <%end%>
             </div>

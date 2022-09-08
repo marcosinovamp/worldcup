@@ -21,6 +21,7 @@
 
 #dtl_sel{
     padding-top:20px;
+    padding-bottom:20px;
     h2{
         font-weight:600;
         color:#34495E;
@@ -193,6 +194,15 @@
         text-align:left;
     }
 }
-.players{
-    background-color:#D6DBDF;
+.selecao_title{
+    text-shadow: 2px 2px 3px #34495E !important;
+    font-weight:1000 !important;
+    color:#F6F6E7 !important;
+}
+.statbox{
+    background-color: #808B96;
+    color:white;
+    margin:35px;
+    padding:5px;
+    text-shadow: 0.5px 0.5px 3px #34495E;
 }

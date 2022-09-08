@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_07_213016) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_08_122243) do
   create_table "confederations", force: :cascade do |t|
     t.string "nome"
     t.datetime "created_at", null: false
@@ -28,8 +28,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_07_213016) do
     t.string "posicao"
     t.string "status"
     t.integer "gols"
-    t.integer "yellow"
-    t.integer "red"
     t.integer "age"
     t.integer "number"
     t.datetime "created_at", null: false
@@ -53,6 +51,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_07_213016) do
     t.index ["grupo_id"], name: "index_jogos_on_grupo_id"
   end
 
+  create_table "red_cards", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "jogo_id"
+    t.integer "jogador_id"
+    t.index ["jogador_id"], name: "index_red_cards_on_jogador_id"
+    t.index ["jogo_id"], name: "index_red_cards_on_jogo_id"
+  end
+
   create_table "selecaos", force: :cascade do |t|
     t.string "nome"
     t.string "continente"
@@ -71,6 +78,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_07_213016) do
     t.datetime "updated_at", null: false
     t.integer "selecao_id"
     t.index ["selecao_id"], name: "index_treinadors_on_selecao_id"
+  end
+
+  create_table "yellow_cards", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "jogo_id"
+    t.integer "jogador_id"
+    t.index ["jogador_id"], name: "index_yellow_cards_on_jogador_id"
+    t.index ["jogo_id"], name: "index_yellow_cards_on_jogo_id"
   end
 
 end
