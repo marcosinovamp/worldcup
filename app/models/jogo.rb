@@ -3,6 +3,11 @@ class Jogo < ApplicationRecord
     has_many :selecaos
     has_many :yellow_cards
     has_many :red_cards
+    # validates :equipe1, :presence => true
+    # validates :equipe1, :numericality => { :only_integer => true }
+    # validates :equipe2, :presence => true
+    # validates :equipe2, :numericality => { :only_integer => true }
+    # validates :data, :presence => true
 
     def selecaos
         [Selecao.find(equipe1).nome, Selecao.find(equipe2).nome]
