@@ -44,6 +44,18 @@ class AdminController < ApplicationController
 
   def selecao
     @selecao = Selecao.find(params[:id])
+    @jogadores = @selecao.jogadors
+    @posic = {}
+    @posic["Goleiro"] = 1 
+    @posic["Lateral Esquerdo"] = 2
+    @posic["Zagueiro"] = 3
+    @posic["Lateral Direito"] = 4
+    @posic["Meio-de-Campo"] = 5
+    @posic["Atacante"] = 6
+    @stat = {}
+    @stat["capitao"] = 1
+    @stat["titular"] = 1
+    @stat["reserva"] = 2
   end
 
   def hoje
