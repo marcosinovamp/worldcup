@@ -1,22 +1,96 @@
 <div class="stdaln">
     <h2 class="titulo">Grupo <%=@game.grupo.nome%></h2>
     <div class="container">
-        <form action="/registro/<%=@game.id%>">
-            <h3 id="gamenumber" class="lightshadow">Jogo #<%=@game.id%></h3>
-            <br>
-            <br>
-            <div class="row result">
-                <div class="col-sm-5">
-                    <a href="/selecao/<%=@sel1.id%>"><p><img src="<%=@sel1.bandeira%>"> <%=@sel1.nome%></p></a>
+        <h3 id="gamenumber" class="lightshadow">Jogo #<%=@game.id%></h3>
+        <br>
+        <div class="row result">
+            <div class="col-sm-5">
+                <a href="/selecao/<%=@sel1.id%>"><p><img src="<%=@sel1.bandeira%>"> <%=@sel1.nome%></p></a>
+            </div>
+            <div class="col-sm-2">
+                <p><%=@game.g1.nil? ? 0 : @game.g1%> X <%=@game.g2.nil? ? 0 : @game.g2%></p>
+            </div>
+            <div class="col-sm-5">
+                <a href="/selecao/<%=@sel2.id%>"><p><%=@sel2.nome%> <img src="<%=@sel2.bandeira%>"></p></a>
+            </div>
+        </div>
+        <br>
+        <div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <form action="/registro/<%=@game.id%>">
+                        <select name="marc1" id="marc1">
+                            <%@jogadores1.sort_by{|jog| jog.number}.each do |j|%>
+                                <option value="<%=j.id%>"><%=j.number%> <%=j.nome%></option>
+                            <%end%>
+                            <option value=0>99 Gol Contra</option>
+                        </select>
+                        <br>
+                        <input class="gmbutton" type="submit" value="Goool!">
+                    </form>
+                    <br>
+                    <form style="font-size:50%" action="/ycards/<%=@game.id%>">
+                        <select name="ycard1" id="ycard1">
+                            <%@jogadores1.sort_by{|jog| jog.number}.each do |j|%>
+                                <option value="<%=j.id%>"><%=j.number%> <%=j.nome%></option>
+                            <%end%>
+                        </select>
+                        <input style="background-color:yellow;border:0.5px solid grey;box-shadow: 1px 1px grey;height:20px;margin:auto" type="submit" value="">
+                    </form>
+                    <br>
+                    <form style="font-size:50%" action="/rcards/<%=@game.id%>">
+                        <select name="rcard1" id="rcard1">
+                            <%@jogadores1.sort_by{|jog| jog.number}.each do |j|%>
+                                <option value="<%=j.id%>"><%=j.number%> <%=j.nome%></option>
+                            <%end%>
+                        </select>
+                        <input style="background-color:red;border:0.5px solid grey;box-shadow: 1px 1px grey;height:20px;margin:auto" type="submit" value="">
+                    </form>
                 </div>
-                <div class="col-sm-2">
-                    <p><input class="gols" type="text" id="g1" name="g1"> X <input class="gols" type="text" id="g2" name="g2"></p>
+                <div class="col-sm-4">
+                    <div class="row">
+                        <div class="col-sm-6">
+                        </div>
+                        <div class="col-sm-6">
+                        </div>
+                    </div>
                 </div>
-                <div class="col-sm-5">
-                    <a href="/selecao/<%=@sel2.id%>"><p><%=@sel2.nome%> <img src="<%=@sel2.bandeira%>"></p></a>
+                <div class="col-sm-4">
+                    <form action="/registro/<%=@game.id%>">
+                        <select name="marc2" id="marc2">
+                            <%@jogadores2.sort_by{|jog| jog.number}.each do |j|%>
+                                <option value="<%=j.id%>"><%=j.number%> <%=j.nome%></option>
+                            <%end%>
+                            <option value=0>99 Gol Contra</option>
+                        </select>
+                        <br>
+                        <input class="gmbutton" type="submit" value="Goool!">
+                    </form>
+                    <br>
+                    <form style="font-size:50%" action="/ycards/<%=@game.id%>">
+                        <select name="ycard2" id="ycard2">
+                            <%@jogadores2.sort_by{|jog| jog.number}.each do |j|%>
+                                <option value="<%=j.id%>"><%=j.number%> <%=j.nome%></option>
+                            <%end%>
+                        </select>
+                        <input style="background-color:yellow;border:0.5px solid grey;box-shadow: 1px 1px grey;height:20px;margin:auto" type="submit" value="">
+                    </form>
+                    <br>
+                    <form style="font-size:50%" action="/rcards/<%=@game.id%>">
+                        <select name="rcard2" id="rcard2">
+                            <%@jogadores2.sort_by{|jog| jog.number}.each do |j|%>
+                                <option value="<%=j.id%>"><%=j.number%> <%=j.nome%></option>
+                            <%end%>
+                        </select>
+                        <input style="background-color:red;border:0.5px solid grey;box-shadow: 1px 1px grey;height:20px;margin:auto" type="submit" value="">
+                    </form>
+                    <br>
                 </div>
             </div>
-            <br>
+        </div>
+        <br>
+        <br>
+        <form action="/registro/<%=@game.id%>">
             <div class="penaltis">
                 <div class="row">
                     <div class="col-sm-4 pnt_bg pnt_top">
@@ -34,7 +108,7 @@
                         <img src="<%=@sel1.bandeira%>">
                     </div>
                     <div class="col-sm-2">
-                        <input class="pnt" type="text" id="p1" name="p1"> X <input class="pnt" type="text" id="p2" name="p2">
+                        <input class="pnt" type="number" id="p1" name="p1" min=0> X <input class="pnt" type="number" id="p2" name="p2" min=0>
                     </div>
                     <div class="col-sm-1">
                         <img src="<%=@sel2.bandeira%>">

@@ -87,7 +87,7 @@
                 </div>
             </div>
             <div class="row">    
-                <%@jogadores.sort_by{|x| [@stat[x.status], @posic[x.posicao], x.number]}.each do |j|%>
+                <%@jogadores.sort_by{|x| [x.number, @stat[x.status], @posic[x.posicao]]}.each do |j|%>
                     <%n += 1%>
                    <%if n.even?%>
                         <%color="#EEEEEE"%>

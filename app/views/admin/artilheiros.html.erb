@@ -1,0 +1,20 @@
+<div class="container">
+    <h2 class="titulo">Artilheiros da Copa</h2>
+    <br>
+    <br>
+    <%n=1%>
+    <%@jogadores.each do |jg|%>
+        <div class="row">
+            <div class="col-sm-6">
+                <%=n%>. <%=jg.nome%> - camisa <%=jg.number%>
+            </div>
+            <div class="col-sm-4">
+                <a href="/selecao/<%=jg.selecao_id%>"><img height="80%" src="<%=jg.selecao.bandeira%>"></a>
+            </div>
+            <div class="col-sm-2">
+                <%=jg.gols%> <%=jg.gols == 1 ? "gol" : "gols"%>
+            </div>
+        </div>
+        <%n += 1%>
+    <%end%>
+

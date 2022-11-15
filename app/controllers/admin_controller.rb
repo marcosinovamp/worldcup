@@ -30,16 +30,55 @@ class AdminController < ApplicationController
     @game = Jogo.find(params[:id])
     @sel1 = Selecao.find(@game.equipe1)
     @sel2 = Selecao.find(@game.equipe2)
+    @jogadores1 = @sel1.jogadors
+    @jogadores2 = @sel2.jogadors
   end
 
   def registro
     @game = Jogo.find(params[:id])
-    @game.g1 =params[:g1]
-    @game.g2 = params[:g2]
+    if params[:marc1].nil? == false
+      @game.g1.nil? ? @game.g1 = 1 : @game.g1 += 1
+      @game.save
+      if params[:marc1].to_i > 0
+        @jogador = Jogador.find(params[:marc1])
+        @jogador.gols.nil? ? @jogador.gols = 1 : @jogador.gols += 1
+        @jogador.save
+      end
+    elsif params[:marc2].nil? == false
+      @game.g2.nil? ? @game.g2 = 1 : @game.g2 += 1
+      @game.save
+      if params[:marc2].to_i > 0
+        @jogador = Jogador.find(params[:marc2])
+        @jogador.gols.nil? ? @jogador.gols = 1 : @jogador.gols += 1
+        @jogador.save
+      end       
+    end
     @game.p1 = params[:p1]
     @game.p2 = params[:p2]
     @game.save
-    redirect_to jogos_path
+    redirect_back :fallback_location => "/"
+  end
+
+  def ycards
+    if params[:ycard1].nil? == false
+      @ycard = YellowCard.new(jogo_id: params[:id], jogador_id: params[:ycard1])
+      @ycard.save
+    elsif params[:ycard2].nil? == false
+      @ycard = YellowCard.new(jogo_id: params[:id], jogador_id: params[:ycard2])
+      @ycard.save
+    end
+    redirect_back :fallback_location => "/"
+  end
+
+  def rcards
+    if params[:rcard1].nil? == false
+      @rcard = RedCard.new(jogo_id: params[:id], jogador_id: params[:rcard1])
+      @rcard.save
+    elsif params[:rcard2].nil? == false
+      @rcard = RedCard.new(jogo_id: params[:id], jogador_id: params[:rcard2])
+      @rcard.save
+    end
+    redirect_back :fallback_location => "/"
   end
 
   def selecao
@@ -87,6 +126,10 @@ class AdminController < ApplicationController
       @oitavas << j.equipe1
       @oitavas << j.equipe2
     end
+  end
+
+  def artilheiros
+    @jogadores = Jogador.all.sort_by{|j| [j.gols.nil? == false ? j.gols*-1 : j.nome]}
   end
 
   private
