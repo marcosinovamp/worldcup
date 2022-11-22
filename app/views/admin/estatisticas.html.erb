@@ -1,86 +1,249 @@
 <div class="container">
-    <h1 class="titulo">Classificação Geral</h1>
-    <br>
     <div class="row">
-        <div class="col-sm-3">
+        <div class="col-sm-6">
+            <div class="stat_box">
+                <h5>Total de Partidas Jogadas:</h5>
+                <p class="number"><%=@played_games.size%></p>
+                <p class="afterword">(<%=@played_games.size - @draws.size%> jogos com um vencedor e <%=@draws.size%> empates)</p>
+            </div>
         </div>
-        <div class="col-sm-1 hdclass darkshadow">
-            <h5>Pts</h5>
+        <div class="col-sm-6">
+            <div class="stat_box">
+                <h5>Quantidade de Gols Feitos:</h5> 
+                <p class="number"><%=@goals_total%></p>
+            </div>
         </div>
-        <div class="col-sm-1 hdclass darkshadow">
-            <h5>Jgs</h5>
+        <div class="col-sm-6">
+            <div class="stat_box">
+                <h5>Média de Gols por Partida:</h5>
+                <p class="number"><%=@goals_avg.to_s.gsub(".",",")%></p>
+            </div>
         </div>
-        <div class="col-sm-1 hdclass darkshadow">
-            <h5>V</h5>
+        <div class="col-sm-6">
+            <div class="stat_box">
+                <h5>Jogo com mais gols:</h5>
+                <p class="number"><img src="<%=@selmost1.bandeira%>">  <%=@most_goals_game.g1%> x <%=@most_goals_game.g2%> <img src="<%=@selmost2.bandeira%>"></p>
+            </div>
         </div>
-        <div class="col-sm-1 hdclass darkshadow">
-            <h5>E</h5>
-        </div>
-        <div class="col-sm-1 hdclass darkshadow">
-            <h5>D</h5>
-        </div>
-        <div class="col-sm-1 hdclass darkshadow">
-            <h5>GP</h5>
-        </div>
-        <div class="col-sm-1 hdclass darkshadow">
-            <h5>GC</h5>
-        </div>
-        <div class="col-sm-1 hdclass darkshadow">
-            <h5>SG</h5>
-        </div>
-        <div class="col-sm-1 hdclass darkshadow">
-            <h5>Status</h5>
-        </div>
-    </div>
-    <div class="placar">
-        <%@selecaos.sort_by{ |t| [denilizador(t.pt)*-1, denilizador(t.sg)*-1, denilizador(t.gp)*-1, t.nome]}.each do |sl|%>
-            <div class="placar_line">
+        <div class="col-sm-6">
+            <div class="stat_box">
+                <h5>Melhor Ataque:</h5>
                 <div class="row">
-                    <div class="col-sm-1">
-                        <img src="<%=sl.bandeira%>">
-                    </div>
                     <div class="col-sm-2">
-                        <a href="/selecao/<%=sl.id%>"><p><%=sl.nome%></p></a>
+                        <ul style="list-style-type: none">
+                            <li>1º</li>
+                            <%if @bas.size < 3%>
+                                <li>2º</li>
+                            <%end%>
+                            <%if @bas.size < 3 && @bas2.size < 2%>
+                                <li>3º</li>
+                            <%end%>
+                        </ul>
                     </div>
-                    <div class="col-sm-1">
-                        <%=denilizador(sl.pt)%>
-                    </div>
-                    <div class="col-sm-1">
-                        <%=denilizador(sl.jg)%>
-                    </div>
-                    <div class="col-sm-1">
-                        <%=denilizador(sl.vt)%>
-                    </div>
-                    <div class="col-sm-1">
-                        <%=denilizador(sl.ep)%>
-                    </div>
-                    <div class="col-sm-1">
-                        <%=denilizador(sl.dr)%>
-                    </div>
-                    <div class="col-sm-1">
-                        <%=denilizador(sl.gp)%>
-                    </div>
-                    <div class="col-sm-1">
-                        <%=denilizador(sl.gc)%>
-                    </div>
-                    <div class="col-sm-1">
-                        <%=denilizador(sl.sg)%>
-                    </div>
-                    <div class="col-sm-1">
-                        <%if @finals.include?(sl.id)%>
-                            <p class="status">Finais</p>
-                        <%elsif @semi.include?(sl.id)%>
-                            <p class="status">Semifinais</p>
-                        <%elsif @quartas.include?(sl.id)%>
-                            <p class="status">Quartas</p>
-                        <%elsif @oitavas.include?(sl.id)%>
-                            <p class="status">Oitavas</p>
-                        <%else%>
-                            <p class="status">Grupos</p>
-                        <%end%>
+                    <div class="col-sm-10">
+                        <ul style="list-style-type: none">
+                            <%@bas.each do |b|%>
+                                <li><img src="<%=b.bandeira%>"> <%=b.gp%> gols</li>
+                            <%end%>
+                            <%if @bas.size < 3%>
+                                <%@bas2.each do |b|%>
+                                    <li><img src="<%=b.bandeira%>"> <%=b.gp%> gols</li>
+                                <%end%>
+                            <%end%>
+                            <%if @bas.size < 3 && @bas2.size < 2%>
+                                <%@bas3.each do |b|%>
+                                    <li><img src="<%=b.bandeira%>"> <%=b.gp%> gols</li>
+                                <%end%>
+                            <%end%>
+                        </ul>
                     </div>
                 </div>
             </div>
-        <%end%>
+        </div>
+        <div class="col-sm-6">
+            <div class="stat_box">
+                <h5>Pior Ataque:</h5>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <ul style="list-style-type: none">
+                            <li>1º</li>
+                            <%if @was.size < 3%>
+                                <li>2º</li>
+                            <%end%>
+                            <%if @was.size < 3 && @was2.size < 2%>
+                                <li>3º</li>
+                            <%end%>
+                        </ul>
+                    </div>
+                    <div class="col-sm-10">
+                        <ul style="list-style-type: none">
+                            <%@was.each do |b|%>
+                                <li><img src="<%=b.bandeira%>"> <%=b.gp%> gols</li>
+                            <%end%>
+                            <%if @was.size < 3%>
+                                <%@was2.each do |b|%>
+                                    <li><img src="<%=b.bandeira%>"> <%=b.gp%> gols</li>
+                                <%end%>
+                            <%end%>
+                            <%if @was.size < 3 && @was2.size < 2%>
+                                <%@was3.each do |b|%>
+                                    <li><img src="<%=b.bandeira%>"> <%=b.gp%> gols</li>
+                                <%end%>
+                            <%end%>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="stat_box">
+                <h5>Melhor Defesa:</h5>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <ul style="list-style-type: none">
+                            <li>1º</li>
+                            <%if @bds.size < 3%>
+                                <li>2º</li>
+                            <%end%>
+                            <%if @bds.size < 3 && @bds.size < 2%>
+                                <li>3º</li>
+                            <%end%>
+                        </ul>
+                    </div>
+                    <div class="col-sm-10">
+                        <ul style="list-style-type: none">
+                            <%@bds.each do |b|%>
+                                <li><img src="<%=b.bandeira%>"> <%=b.gc%> gols</li>
+                            <%end%>
+                            <%if @bds.size < 3%>
+                                <%@bds2.each do |b|%>
+                                    <li><img src="<%=b.bandeira%>"> <%=b.gc%> gols</li>
+                                <%end%>
+                            <%end%>
+                            <%if @bds.size < 3 && @bds2.size < 2%>
+                                <%@bds3.each do |b|%>
+                                    <li><img src="<%=b.bandeira%>"> <%=b.gc%> gols</li>
+                                <%end%>
+                            <%end%>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="stat_box">
+                <h5>Pior Defesa:</h5>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <ul style="list-style-type: none">
+                            <li>1º</li>
+                            <%if @wds.size < 3%>
+                                <li>2º</li>
+                            <%end%>
+                            <%if @wds.size < 3 && @wds2.size < 2%>
+                                <li>3º</li>
+                            <%end%>
+                        </ul>
+                    </div>
+                    <div class="col-sm-10">
+                        <ul style="list-style-type: none">
+                            <%@wds.each do |b|%>
+                                <li><img src="<%=b.bandeira%>"> <%=b.gc%> gols</li>
+                            <%end%>
+                            <%if @wds.size < 3%>
+                                <%@wds2.each do |b|%>
+                                    <li><img src="<%=b.bandeira%>"> <%=b.gc%> gols</li>
+                                <%end%>
+                            <%end%>
+                            <%if @wds.size < 3 && @wds2.size < 2%>
+                                <%@wds3.each do |b|%>
+                                    <li><img src="<%=b.bandeira%>"> <%=b.gc%> gols</li>
+                                <%end%>
+                            <%end%>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="stat_box">
+                <h5>Mais Cartões Amarelos:</h5>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <ul style="list-style-type: none">
+                            <li>1º</li>
+                            <%if @myc.size < 3%>
+                                <li>2º</li>
+                            <%end%>
+                            <%if @myc.size < 3 && @myc2.size < 2%>
+                                <li>3º</li>
+                            <%end%>
+                        </ul>
+                    </div>
+                    <div class="col-sm-10">
+                        <ul style="list-style-type: none">
+                            <%@myc.each do |b|%>
+                                <li><img src="<%=b.bandeira%>"> <%=b.yellow_cards.size%> cartões amarelos</li>
+                            <%end%>
+                            <%if @myc.size < 3%>
+                                <%@myc2.each do |b|%>
+                                    <li><img src="<%=b.bandeira%>"> <%=b.yellow_cards.size%> cartões amarelos</li>
+                                <%end%>
+                            <%end%>
+                            <%if @myc.size < 3 && @myc2.size < 2%>
+                                <%@myc3.each do |b|%>
+                                   <li><img src="<%=b.bandeira%>"> <%=b.yellow_cards.size%> cartões amarelos</li>
+                                <%end%>
+                            <%end%>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="stat_box">
+                <h5>Mais Cartões Vermelhos:</h5>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <ul style="list-style-type: none">
+                            <li>1º</li>
+                            <%if @mrc.size < 3%>
+                                <li>2º</li>
+                            <%end%>
+                            <%if @mrc.size < 3 && @mrc2.size < 2%>
+                                <li>3º</li>
+                            <%end%>
+                        </ul>
+                    </div>
+                    <div class="col-sm-10">
+                        <ul style="list-style-type: none">
+                            <%@mrc.each do |b|%>
+                                <li><img src="<%=b.bandeira%>"> <%=b.red_cards.size%> cartões vermelhos</li>
+                            <%end%>
+                            <%if @mrc.size < 3%>
+                                <%@mrc2.each do |b|%>
+                                    <li><img src="<%=b.bandeira%>"> <%=b.red_cards.size%> cartões vermelhos</li>
+                                <%end%>
+                            <%end%>
+                            <%if @mrc.size < 3 && @mrc2.size < 2%>
+                                <%@mrc3.each do |b|%>
+                                    <li><img src="<%=b.bandeira%>"> <%=b.red_cards.size%> cartões vermelhos</li>
+                                <%end%>
+                            <%end%>
+                        </ul>
+                    </div>
+                </div>
+                <%if @mrc.size > 15%>
+                    <br>
+                    <br>
+                <%elsif @mrc.size < 3 && @mrc2.size > 13%>
+                    <br>
+                    <br>
+                <%elsif (@mrc.size + @mrc2.size) < 3 && @mrc3.size > 13%>
+                    <br>
+                    <br>
+                <%end%>
+            </div>
+        </div>
     </div>
 </div>

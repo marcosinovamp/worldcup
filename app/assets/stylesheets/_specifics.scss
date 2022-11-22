@@ -186,6 +186,25 @@
         font-weight:800;
     }
 }
+.flag_titulo2{
+    //margin-top:-30px;
+    color:#34495E;
+    font-weight:700;
+    text-shadow: 3px 3px 4px #515A5A;
+    height:130px;
+    display:flex;
+    justify-content:center;
+    align-content: center;
+    line-height:100%;
+    h1{
+        margin-right:8px;
+        margin-left:8px;
+        margin-top:-5px;
+        margin-bottom:10px;
+        font-size:700%;
+        font-weight:800;
+    }
+}
 .playerlist{
     h6{
         text-align:left;

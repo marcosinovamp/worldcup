@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_15_052938) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_20_153232) do
   create_table "confederations", force: :cascade do |t|
     t.string "nome"
     t.datetime "created_at", null: false
@@ -58,6 +58,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_15_052938) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "grupo_id"
+    t.boolean "started", default: false
     t.index ["grupo_id"], name: "index_jogos_on_grupo_id"
   end
 

@@ -1,20 +1,48 @@
 <div class="container">
-    <h2 class="titulo">Artilheiros da Copa</h2>
-    <br>
-    <br>
-    <%n=1%>
-    <%@jogadores.each do |jg|%>
-        <div class="row">
-            <div class="col-sm-6">
-                <%=n%>. <%=jg.nome%> - camisa <%=jg.number%>
-            </div>
-            <div class="col-sm-4">
-                <a href="/selecao/<%=jg.selecao_id%>"><img height="80%" src="<%=jg.selecao.bandeira%>"></a>
-            </div>
-            <div class="col-sm-2">
-                <%=jg.gols%> <%=jg.gols == 1 ? "gol" : "gols"%>
-            </div>
+    <div class="row">
+        <div style="border-right: 5px solid #34495E" class="col-sm-6">
+            <h2 class="titulo">Artilheiros da Copa</h2>
+            <br>
+            <br>
+            <%n=1%>
+            <%@jogadores.each do |jg|%>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <%=n%>. <%=jg.nome%> - camisa <%=jg.number%>
+                    </div>
+                    <div class="col-sm-4">
+                        <a href="/selecao/<%=jg.selecao_id%>"><img height="80%" src="<%=jg.selecao.bandeira%>"></a>
+                    </div>
+                    <div class="col-sm-2">
+                        <div style="border:1px solid black;border-radius:15px;width:40%;text-align:center;background-image: url(<%= asset_path 'padrao_bola.png'%>);text-shadow:2px 2px 1px white;background-color: rgba(255,255,255,0.7); background-blend-mode: lighten;font-family: 'Anton', sans-serif;box-shadow:1px 1px grey;color:#641E16;font-size:120%"><%=jg.gols%></div>
+                    </div>
+                </div>
+                <%n += 1%>
+            <%end%>
         </div>
-        <%n += 1%>
-    <%end%>
+        <div class="col-sm-6">
+            <h2 class="titulo">Cartões</h2>
+            <br>
+            <br>
+            <%n=1%>
+            <%@jogcards.each do |jg|%>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <%=n%>. <%=jg.nome%> - camisa <%=jg.number%>
+                    </div>
+                    <div class="col-sm-4">
+                        <a href="/selecao/<%=jg.selecao_id%>"><img height="70%" src="<%=jg.selecao.bandeira%>"></a>
+                    </div>
+                    <div class="col-sm-1">
+                        <p style="font-size:70%;margin:auto;padding:1px;background-color:red;text-align:center;heigth:25px;line-height:25px;border:1px solid black;font-weight:700;border-radius:5px;color:white"><%=jg.red_cards.size%></p>
+                    </div>
+                    <div class="col-sm-1">
+                        <p style="font-size:70%;margin:auto;padding:1px;background-color:yellow;text-align:center;heigth:25px;line-height:25px;border:1px solid black;font-weight:700;border-radius:5px"><%=jg.yellow_cards.size%></p>
+                    </div>
+                </div>
+                <%n += 1%>
+            <%end%>
+        </div>
+    </div>
+</div>
 

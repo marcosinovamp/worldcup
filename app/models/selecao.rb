@@ -4,8 +4,8 @@ class Selecao < ApplicationRecord
   has_many :jogos
   has_one :treinador
   has_many :jogadors
-  # validates :nome, :presence => true
-  # validates :nome, :uniqueness => true
+  has_many :yellow_cards, through: :jogadors
+  has_many :red_cards, through: :jogadors
 
 
   def jogos
@@ -15,9 +15,9 @@ class Selecao < ApplicationRecord
   def vt
     @vct = 0
     self.jogos.map { |j|
-      if self.id == j.equipe1 && j.g1.nil? == false && j.g2.nil? == false && j.g1 > j.g2
+      if self.id == j.equipe1 && j.started == true && j.g1 > j.g2
         @vct += 1
-      elsif self.id == j.equipe2 && j.g1.nil? == false && j.g2.nil? == false && j.g2 > j.g1
+      elsif self.id == j.equipe2 && j.started == true && j.g2 > j.g1
         @vct += 1
       end
     }
@@ -27,9 +27,9 @@ class Selecao < ApplicationRecord
   def ep
     @ept = 0
     self.jogos.map { |j|
-      if self.id == j.equipe1 && j.g1.nil? == false && j.g2.nil? == false && j.g1 == j.g2
+      if self.id == j.equipe1 && j.started == true && j.g1 == j.g2
         @ept += 1
-      elsif self.id == j.equipe2 && j.g1.nil? == false && j.g2.nil? == false && j.g2 == j.g1
+      elsif self.id == j.equipe2 && j.started == true && j.g2 == j.g1
         @ept += 1
       end
     }
@@ -39,9 +39,9 @@ class Selecao < ApplicationRecord
   def dr
     @drt = 0
     self.jogos.map { |j|
-      if self.id == j.equipe1 && j.g1.nil? == false && j.g2.nil? == false && j.g1 < j.g2
+      if self.id == j.equipe1 && j.started == true && j.g1 < j.g2
         @drt += 1
-      elsif self.id == j.equipe2 && j.g1.nil? == false && j.g2.nil? == false && j.g2 < j.g1
+      elsif self.id == j.equipe2 && j.started == true && j.g2 < j.g1
         @drt += 1
       end
     }

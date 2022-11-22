@@ -1,8 +1,16 @@
 <div class="container">
-    <div class="flag_titulo nomargin" style="background-image:url(<%=@selecao.bandeira%>);background-size:contain">
-        <%@selecao.nome.upcase.split("").each do |l|%>
-            <h1><%=l%></h1>
-        <%end%>
+    <div class="row nomargin whitecanvas">
+        <div style="margin-top:0" class="col-sm-2">
+            <%=image_tag("#{@selecao.nome.downcase}.png", {:style => "width:70%;margin:auto"})%>
+        </div>
+        <div class="col-sm-8 flag_titulo2">
+            <%@selecao.nome.upcase.split("").each do |l|%>
+                <h1><%=l%></h1>
+            <%end%>
+        </div>
+        <div style="margin-top:0" class="col-sm-2">
+            <img width="70%" src="<%=@selecao.bandeira%>">
+        </div>
     </div>
     <div class="row nomargin whitecanvas" id="dtl_sel">
         <div class="col-sm-6">
@@ -88,7 +96,7 @@
                 </div>
             </div>
             <div class="row">    
-                <%@jogadores.sort_by{|x| [x.gols*-1, x.number] }.each do |j|%>
+                <%@jogadores.sort_by{|x| [x.number, @stat[x.status], @posic[x.posicao]]}.each do |j|%>
                     <%n += 1%>
                    <%if n.even?%>
                         <%color="#EEEEEE"%>

@@ -1,5 +1,23 @@
-<h1 class="titulo">Hoje:</h1>
+<h1 class="titulo"><%=@semana[@dia.wday]%>, <%=today(@dia.to_date.strftime "%d/%m/%Y")%></h1>
 <br>
+<form action="/hoje">
+    <select name="data" id="data" size="1">
+        <%@antes.each do |a|%>
+           <option value="<%=a.to_i%>"><%=a.to_i*-1%> dias atrás</option>
+        <%end%>
+        <option value="-3">3 dias atrás</option>
+        <option value="-2">Antes de Ontem</option>
+        <option value="-1">Ontem</option>
+        <option value="0" selected>Hoje</option>
+        <option value="1">Amanhã</option>
+        <option value="2">Depois de Amanhã</option>
+        <option value="3">Daqui a 3 dias</option>
+        <%@depois.each do |d|%>
+           <option value="<%=d.to_i%>">Daqui a <%=d.to_i%> dias</option>
+        <%end%>
+    </select> 
+    <input class="btn btn-success" style="padding-bottom:0.5px;padding-top:0.5px" type="submit" value="Ver">
+</form>
 <%if @hoje.empty?%>
     <div class="result">Sem jogos hoje!</div>
     <%if @dia < Jogo.first.data%>
@@ -13,14 +31,15 @@
 <%else%>
     <%@hoje.each do |h|%>
         <h3 class="hora_hj darkshadow"><%=horario(h.data.strftime "%d/%m/%Y/%H/%M")%></h3>
-        <div class="result"><a href="/resultado/<%=h.id%>"><img style="width:5%" src="<%=Selecao.find(h.equipe1).bandeira%>"> <%=Selecao.find(h.equipe1).nome%> x <%=Selecao.find(h.equipe2).nome%> <img style="width:5%" src="<%=Selecao.find(h.equipe2).bandeira%>"></a></div>
+        <div class="result">
+            <a href="/resultado/<%=h.id%>">
+                <%if h.equipe1 > 32 || h.equipe2 > 32 %>
+                    <%=h.equipe1%> x <%=h.equipe2%>
+                <%else%>  
+                    <img style="width:5%" src="<%=Selecao.find(h.equipe1).bandeira%>"> <%=Selecao.find(h.equipe1).nome%> x <%=Selecao.find(h.equipe2).nome%> <img style="width:5%" src="<%=Selecao.find(h.equipe2).bandeira%>">
+                <%end%>
+            </a>
+        </div>
         <br>
     <%end%>
 <%end%>
-<!---
-<p>Jogador.create([
-<%@jogadores.each do |j|%>
-    <span>{nome: "<%=j.nome%>", posicao: "<%=j.posicao%>", status: "<%=j.status%>", age: <%=j.age%>, number: <%=j.number%>, selecao_id: <%=j.selecao_id%>}, </span>
-<%end%>
-])
---->

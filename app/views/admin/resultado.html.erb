@@ -1,7 +1,7 @@
 <div class="stdaln">
     <h2 class="titulo">Grupo <%=@game.grupo.nome%></h2>
     <div class="container">
-        <h3 id="gamenumber" class="lightshadow">Jogo #<%=@game.id%></h3>
+        <h3 id="gamenumber" class="lightshadow">Jogo #<%=@game.id%>  <a href="/started/<%=@game.id%>" class="btn btn-success">Começar</a></h3>
         <br>
         <div class="row result">
             <div class="col-sm-5">
@@ -26,6 +26,7 @@
                             <option value=0>99 Gol Contra</option>
                         </select>
                         <br>
+                        <br>
                         <input class="gmbutton" type="submit" value="Goool!">
                     </form>
                     <br>
@@ -35,7 +36,7 @@
                                 <option value="<%=j.id%>"><%=j.number%> <%=j.nome%></option>
                             <%end%>
                         </select>
-                        <input style="background-color:yellow;border:0.5px solid grey;box-shadow: 1px 1px grey;height:20px;margin:auto" type="submit" value="">
+                        <input style="background-color:yellow;border:0.5px solid grey;box-shadow: 1px 1px grey;height:20px;margin-bottom:-2%" type="submit" value="">
                     </form>
                     <br>
                     <form style="font-size:50%" action="/rcards/<%=@game.id%>">
@@ -44,15 +45,22 @@
                                 <option value="<%=j.id%>"><%=j.number%> <%=j.nome%></option>
                             <%end%>
                         </select>
-                        <input style="background-color:red;border:0.5px solid grey;box-shadow: 1px 1px grey;height:20px;margin:auto" type="submit" value="">
+                        <input style="background-color:red;border:0.5px solid grey;box-shadow: 1px 1px grey;height:20px;margin-bottom:-2%" type="submit" value="">
                     </form>
                 </div>
                 <div class="col-sm-4">
-                    <div class="row">
-                        <div class="col-sm-6">
-                        </div>
-                        <div class="col-sm-6">
-                        </div>
+                    <div style="background-color:white;border-radius:5px;border:1px solid black;padding:15px;margin-top:-20px">
+                        <%@eventos.each do |e|%>
+                            <%if e.tipo == "Gol"%>
+                                <p style="text-align:<%=Jogador.find(e.jogador_id).selecao_id.to_i == @game.equipe1.to_i ? 'left' : 'right'%>"><%=image_tag("gol.jpg", {:style => "width:5%"})%> <%=Jogador.find(e.jogador_id).nome%></p>
+                            <%elsif e.tipo == "Cartão Amarelo"%>
+                                <p style="text-align:<%=Jogador.find(e.jogador_id).selecao_id.to_i == @game.equipe1.to_i ? 'left' : 'right'%>"><%=image_tag("yellow.jpg", {:style => "width:5%"})%> <%=Jogador.find(e.jogador_id).nome%></p>
+                            <%elsif e.tipo == "Cartão Vermelho"%>
+                                <p style="text-align:<%=Jogador.find(e.jogador_id).selecao_id.to_i == @game.equipe1.to_i ? 'left' : 'right'%>"><%=image_tag("red.jpg", {:style => "width:5%"})%> <%=Jogador.find(e.jogador_id).nome%></p>
+                            <%else%>
+                                <p style="text-align:<%=Jogador.find(e.jogador_id).selecao_id.to_i == @game.equipe1.to_i ? 'left' : 'right'%>"><%=e.tipo%> - <%=Jogador.find(e.jogador_id).nome%></p>
+                            <%end%>
+                        <%end%>
                     </div>
                 </div>
                 <div class="col-sm-4">
@@ -64,6 +72,7 @@
                             <option value=0>99 Gol Contra</option>
                         </select>
                         <br>
+                        <br>
                         <input class="gmbutton" type="submit" value="Goool!">
                     </form>
                     <br>
@@ -73,7 +82,7 @@
                                 <option value="<%=j.id%>"><%=j.number%> <%=j.nome%></option>
                             <%end%>
                         </select>
-                        <input style="background-color:yellow;border:0.5px solid grey;box-shadow: 1px 1px grey;height:20px;margin:auto" type="submit" value="">
+                        <input style="background-color:yellow;border:0.5px solid grey;box-shadow: 1px 1px grey;height:20px;margin-bottom:-2%" type="submit" value="">
                     </form>
                     <br>
                     <form style="font-size:50%" action="/rcards/<%=@game.id%>">
@@ -82,7 +91,7 @@
                                 <option value="<%=j.id%>"><%=j.number%> <%=j.nome%></option>
                             <%end%>
                         </select>
-                        <input style="background-color:red;border:0.5px solid grey;box-shadow: 1px 1px grey;height:20px;margin:auto" type="submit" value="">
+                        <input style="background-color:red;border:0.5px solid grey;box-shadow: 1px 1px grey;height:20px;margin-bottom:-2%" type="submit" value="">
                     </form>
                     <br>
                 </div>

@@ -32,6 +32,16 @@ class AdminController < ApplicationController
     @sel2 = Selecao.find(@game.equipe2)
     @jogadores1 = @sel1.jogadors
     @jogadores2 = @sel2.jogadors
+    @eventos = @game.eventos
+  end
+
+  def started
+    @game = Jogo.find(params[:id])
+    @game.started = true
+    @game.g1 = @game.g1.nil? ? 0 : @game.g1
+    @game.g2 = @game.g2.nil? ? 0 : @game.g2
+    @game.save
+    redirect_back :fallback_location => "/"
   end
 
   def registro
@@ -56,6 +66,8 @@ class AdminController < ApplicationController
     @game.p1 = params[:p1]
     @game.p2 = params[:p2]
     @game.save
+    @evento = Evento.new(tipo:"Gol", jogo_id: @game.id, jogador_id:@jogador.id)
+    @evento.save
     redirect_back :fallback_location => "/"
   end
 
@@ -63,9 +75,13 @@ class AdminController < ApplicationController
     if params[:ycard1].nil? == false
       @ycard = YellowCard.new(jogo_id: params[:id], jogador_id: params[:ycard1])
       @ycard.save
+      @evento = Evento.new(tipo: "Cartão Amarelo", jogo_id: params[:id], jogador_id: params[:ycard1])
+      @evento.save
     elsif params[:ycard2].nil? == false
       @ycard = YellowCard.new(jogo_id: params[:id], jogador_id: params[:ycard2])
       @ycard.save
+      @evento = Evento.new(tipo: "Cartão Amarelo", jogo_id: params[:id], jogador_id: params[:ycard2])
+      @evento.save
     end
     redirect_back :fallback_location => "/"
   end
@@ -74,9 +90,13 @@ class AdminController < ApplicationController
     if params[:rcard1].nil? == false
       @rcard = RedCard.new(jogo_id: params[:id], jogador_id: params[:rcard1])
       @rcard.save
+      @evento = Evento.new(tipo: "Cartão Vermelho", jogo_id: params[:id], jogador_id: params[:rcard1])
+      @evento.save
     elsif params[:rcard2].nil? == false
       @rcard = RedCard.new(jogo_id: params[:id], jogador_id: params[:rcard2])
       @rcard.save
+      @evento = Evento.new(tipo: "Cartão Vermelho", jogo_id: params[:id], jogador_id: params[:rcard2])
+      @evento.save
     end
     redirect_back :fallback_location => "/"
   end
@@ -98,13 +118,89 @@ class AdminController < ApplicationController
   end
 
   def hoje
-    @dia = Date.current
+    if params[:data].nil?
+      @dia = Date.current
+    else
+      @dia = Date.current + params[:data].to_i
+    end
     @hoje = Jogo.all.select{ |j| j.data.to_date == @dia}
     @jogadores = Jogador.all
+    @antes = (-30..-4).to_a
+    @depois = (4..30).to_a
+    @semana = {0 => "Domingo", 1 => "Segunda-feira", 2 => "Terça-feira", 3 => "Quarta-feira", 4 => "Quinta-feira", 5 => "Sexta-feira", 6 => "Sábado"}
   end
   
 
   def estatisticas
+    @best_attack = Selecao.all.select{|sl| sl.jg > 0 }.sort_by{|s| s.gp*-1}
+    @best_defence = Selecao.all.select{|sl| sl.jg > 0 }.sort_by{|s| s.gc}
+    @greater_sg = Selecao.all.select{|sl| sl.jg > 0 }.sort_by{|s| s.sg*-1}
+    @most_ycards = Selecao.all.select{|sl| sl.jg > 0 }.sort_by{|s| s.yellow_cards.size*-1}
+    @most_rcards = Selecao.all.select{|sl| sl.jg > 0 }.sort_by{|s| s.red_cards.size*-1}
+    @golspro = []
+    @golscontra = []
+    @yellow = []
+    @red = []
+    Selecao.all.each do |s|
+      @golspro << s.gp
+      @golscontra << s.gc
+      @yellow << s.yellow_cards.size
+      @red << s.red_cards.size
+    end
+    @sel_conc = Selecao.all.select{|s| s.jg > 0}
+    @golspro = @golspro.uniq.sort
+    @max_gp = @golspro.max
+    @max_gp2 = @golspro[-2]
+    @max_gp3 = @golspro[-3]
+    @min_gp = @golspro.min
+    @min_gp2 = @golspro[1]
+    @min_gp3 = @golspro[2]
+    @bas = @sel_conc.select{|s| s.gp == @max_gp}
+    @bas2 = @sel_conc.select{|s| s.gp == @max_gp2}
+    @bas3 = @sel_conc.select{|s| s.gp == @max_gp3}
+    @was = @sel_conc.select{|s| s.gp == @min_gp}
+    @was2 = @sel_conc.select{|s| s.gp == @min_gp2}
+    @was3 = @sel_conc.select{|s| s.gp == @min_gp3}
+    @golscontra = @golscontra.uniq.sort
+    @max_gc = @golscontra.max
+    @max_gc2 = @golscontra[-2]
+    @max_gc3 = @golscontra[-3]
+    @min_gc = @golscontra.min
+    @min_gc2 = @golscontra[1]
+    @min_gc3 = @golscontra[2]
+    @bds = @sel_conc.select{|s| s.gc == @min_gc}
+    @bds2 = @sel_conc.select{|s| s.gc == @min_gc2}
+    @bds3 = @sel_conc.select{|s| s.gc == @min_gc3}
+    @wds = @sel_conc.select{|s| s.gc == @max_gc}
+    @wds2 = @sel_conc.select{|s| s.gc == @max_gc2}
+    @wds3 = @sel_conc.select{|s| s.gc == @max_gc3}
+    @played_games = Jogo.all.select{|j| j.started == true}
+    @draws = @played_games.select{|jg| jg.g1 == jg.g2}
+    @goals_total = 0
+    @played_games.each do |jg|
+      @goals_total += (jg.g1 + jg.g2)
+    end
+    @goals_avg = (@goals_total.to_f/@played_games.size).round(2)
+    @most_goals_game = Jogo.all.select{|jg| jg.started == true}.sort_by{|s| (s.g1 + s.g2)*-1}.first
+    @selmost1 = Selecao.find(@most_goals_game.equipe1)
+    @selmost2 = Selecao.find(@most_goals_game.equipe2)
+    @yellow = @yellow.uniq.sort
+    @max_yc = @yellow.max
+    @max_yc2 = @yellow[-2]
+    @max_yc3 = @yellow[-3]
+    @myc = @sel_conc.select{|s| s.yellow_cards.size == @max_yc}
+    @myc2 = @sel_conc.select{|s| s.yellow_cards.size == @max_yc2}
+    @myc3 = @sel_conc.select{|s| s.yellow_cards.size == @max_yc3}
+    @red = @red.uniq.sort
+    @max_rc = @red.max
+    @max_rc2 = @red[-2]
+    @max_rc3 = @red[-3]
+    @mrc = @sel_conc.select{|s| s.red_cards.size == @max_rc}
+    @mrc2 = @sel_conc.select{|s| s.red_cards.size == @max_rc2}
+    @mrc3 = @sel_conc.select{|s| s.red_cards.size == @max_rc3}
+  end
+
+  def cgeral
     definições_fase_grupos
     @finals = []
     @semi = []
@@ -129,7 +225,24 @@ class AdminController < ApplicationController
   end
 
   def artilheiros
-    @jogadores = Jogador.all.sort_by{|j| [j.gols.nil? == false ? j.gols*-1 : j.nome]}
+    @jogadores = Jogador.all.sort_by{|j| [j.gols*-1, j.nome]}
+    @jogcards = Jogador.all.sort_by{|j| (j.red_cards.size*2 + j.yellow_cards.size)*-1}
+  end
+
+  def rascunho
+    @selecao = Selecao.find(params[:id])
+    @jogadores = @selecao.jogadors
+    @posic = {}
+    @posic["Goleiro"] = 1 
+    @posic["Lateral Esquerdo"] = 2
+    @posic["Zagueiro"] = 3
+    @posic["Lateral Direito"] = 4
+    @posic["Meio-de-Campo"] = 5
+    @posic["Atacante"] = 6
+    @stat = {}
+    @stat["capitão"] = 1
+    @stat["titular"] = 1
+    @stat["reserva"] = 2
   end
 
   private
@@ -139,8 +252,6 @@ class AdminController < ApplicationController
     @conf = Confederation.all.select {|c| c.selecaos.size > 0}
     @grupos = Grupo.all.select {|g| g.selecaos.size > 0}
   end
-
-  private
 
   def jogo_params
     params.require(:jogo).permit(:equipe1, :equipe2, :g1, :g2, :p1, :p2)
