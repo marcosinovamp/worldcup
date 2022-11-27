@@ -1,6 +1,5 @@
 class Jogo < ApplicationRecord
     belongs_to :grupo
-    has_many :selecaos
     has_many :yellow_cards
     has_many :red_cards
     has_many :eventos

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_20_153232) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_24_141026) do
   create_table "confederations", force: :cascade do |t|
     t.string "nome"
     t.datetime "created_at", null: false
@@ -23,8 +23,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_20_153232) do
     t.datetime "updated_at", null: false
     t.integer "jogo_id"
     t.integer "jogador_id"
+    t.integer "treinador_id", default: 0
     t.index ["jogador_id"], name: "index_eventos_on_jogador_id"
     t.index ["jogo_id"], name: "index_eventos_on_jogo_id"
+    t.index ["treinador_id"], name: "index_eventos_on_treinador_id"
   end
 
   create_table "grupos", force: :cascade do |t|
@@ -67,8 +69,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_20_153232) do
     t.datetime "updated_at", null: false
     t.integer "jogo_id"
     t.integer "jogador_id"
+    t.integer "treinador_id", default: 0
     t.index ["jogador_id"], name: "index_red_cards_on_jogador_id"
     t.index ["jogo_id"], name: "index_red_cards_on_jogo_id"
+    t.index ["treinador_id"], name: "index_red_cards_on_treinador_id"
   end
 
   create_table "selecaos", force: :cascade do |t|
@@ -96,8 +100,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_20_153232) do
     t.datetime "updated_at", null: false
     t.integer "jogo_id"
     t.integer "jogador_id"
+    t.integer "treinador_id", default: 0
     t.index ["jogador_id"], name: "index_yellow_cards_on_jogador_id"
     t.index ["jogo_id"], name: "index_yellow_cards_on_jogo_id"
+    t.index ["treinador_id"], name: "index_yellow_cards_on_treinador_id"
   end
 
 end

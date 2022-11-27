@@ -1,5 +1,5 @@
 class RedCard < ApplicationRecord
     belongs_to :jogo
-    belongs_to :jogador
-    has_one :selecao, through: :jogador
+    has_one :jogador
+    has_one :treinador
 end

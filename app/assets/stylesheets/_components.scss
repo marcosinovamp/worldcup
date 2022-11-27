@@ -72,47 +72,121 @@
     text-align:center;
     margin-left:-15px;
     img{
-        width:60%;
+        width:20%;
     }
     p{
         text-align:left;
         font-size:120%;
     }
 }
-.stat_box{
-    background-color: #EFEBE9; 
-    border: 2px solid #6D4C41;
-    border-radius:5px;
-    box-shadow: 1px 1px 0.5px grey;
-    text-align:center;
-    font-weight:600;
-    color:#4E342E;
-    width:50%;
+.number{
+    margin-bottom:1px;
+    font-size:300%;
     margin:auto;
-    padding-bottom:10px;
-    height:90%;
+    color: #455A64;
+    text-align:center;
+    text-shadow: 2px 2px 2px #263238;
+}
+.comp{
+    font-size: 150%;
+    color: #607D8B;
+    text-align:center;
+}
+.number_lt{
+    margin-bottom:1px;
+    font-size:200%;
+    margin:auto;
+    color: #455A64;
+    text-align:center;
+    text-shadow: 1px 1px 1px #263238;
+}
+.comp_lt{
+    font-size: 120%;
+    color: #607D8B;
+    text-align:center;
+}
+.afterword{
+    font-size:80%;
+    font-style:italic;
+    margin-top:-10px;
+    margin-bottom:0;
+    color: #747474;
+    text-align:center;
+}
+.nmb_row{
+    background-color:#EFEBE9;
+    margin-left:-80px;
+    margin-right:-80px;
+    margin-top:-20px;
+    margin-bottom:10px;
+    padding:10px 0;
+    border-radius:5px;
     h5{
-        background-color:#6D4C41;
-        color:#EFEBE9;
-        padding:5px;
+        color:#CDC8C5;
+        font-size:150%;
+        text-shadow:1px 1px 2px #455A64;
+        font-weight:700;
     }
-    .number{
-        margin-bottom:1px;
-        font-size:140%;
-        margin:auto;
-    }
-    .afterword{
-        font-size:80%;
-        font-style:italic;
-        margin-top:-1px;
-        margin-bottom:0;
-        color: #A1887F;
-    }
-    img{
-        width:12%;
-        margin:auto;
-    }
-    ul{
+}
+.nmb_title{
+    color:#CDC8C5;
+    font-size:180%;
+    text-shadow:2px 2px 2px #455A64;
+    font-weight:800;
+}
+.nmb_uptitle{
+    color:#747474;
+    font-size:180%;
+    text-shadow:2px 2px 2px #CDC8C5;
+    font-weight:800;
+}
+.moreless{
+    list-style-type:none;
+    font-size:120%;
+    color: #455A64;
+    text-align:center;
+    text-shadow: 0.5px 0.5px 1px #263238;
+    li{
+        margin-bottom:3px;
+        margin-top:3px;
         text-align:justify;
     }
+    img{
+        //margin-bottom: 2px;
+        //margin-top:2px;
+        width: 10%;
+    }
+}
+.shadowed{
+    text-shadow:0.5px 0.5px 1px #F8F9F9;
+    font-weight:1000;
+}
+.gd{
+    background-color:#D4EFDF;
+    //width:40%;
+    //border:2px solid #229954;
+    //border-radius:5px;
+    //height:100% !important;
+    //margin:0 auto;
+    padding:10px;
+}
+.bd{
+    background-color:#FADBD8;
+    // width:40%;
+    // border:2px solid #922B21;
+    // border-radius:5px;
+    // height:100% !important;
+    // margin:0 auto;
+    padding:10px;
+}
+.ca{
+    background-color:#FCF3CF;
+    padding:10px;
+}
+.cv{
+    background-color:#F5B7B1;
+    padding:10px;
+}
+.flag{
+    box-shadow: 1px 1px 1px black !important;
 }

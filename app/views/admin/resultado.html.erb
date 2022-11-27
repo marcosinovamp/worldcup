@@ -47,18 +47,30 @@
                         </select>
                         <input style="background-color:red;border:0.5px solid grey;box-shadow: 1px 1px grey;height:20px;margin-bottom:-2%" type="submit" value="">
                     </form>
+                    <br>
+                    <p>coach: <a style="background-color:yellow;border:0.5px solid grey;box-shadow: 1px 1px grey;height:20px;margin-bottom:-2%;text-decoration:none;color:yellow;width:40px" href="/yctr/<%=@game.id%>?coach=<%=@sel1.treinador%>">aa</a> <a style="background-color:red;border:0.5px solid grey;box-shadow: 1px 1px grey;height:20px;margin-bottom:-2%;text-decoration:none;color:red;width:40px" href="/rctr/<%=@game.id%>?coach=<%=@sel1.treinador%>">aa</a></p>
                 </div>
                 <div class="col-sm-4">
                     <div style="background-color:white;border-radius:5px;border:1px solid black;padding:15px;margin-top:-20px">
                         <%@eventos.each do |e|%>
-                            <%if e.tipo == "Gol"%>
-                                <p style="text-align:<%=Jogador.find(e.jogador_id).selecao_id.to_i == @game.equipe1.to_i ? 'left' : 'right'%>"><%=image_tag("gol.jpg", {:style => "width:5%"})%> <%=Jogador.find(e.jogador_id).nome%></p>
-                            <%elsif e.tipo == "Cartão Amarelo"%>
-                                <p style="text-align:<%=Jogador.find(e.jogador_id).selecao_id.to_i == @game.equipe1.to_i ? 'left' : 'right'%>"><%=image_tag("yellow.jpg", {:style => "width:5%"})%> <%=Jogador.find(e.jogador_id).nome%></p>
-                            <%elsif e.tipo == "Cartão Vermelho"%>
-                                <p style="text-align:<%=Jogador.find(e.jogador_id).selecao_id.to_i == @game.equipe1.to_i ? 'left' : 'right'%>"><%=image_tag("red.jpg", {:style => "width:5%"})%> <%=Jogador.find(e.jogador_id).nome%></p>
+                            <%if e.jogador_id.nil? || e.jogador_id == 0%>
+                                <%if e.tipo == "Cartão Amarelo"%>
+                                    <p style="text-align:<%=Treinador.find(e.treinador_id).selecao_id.to_i == @game.equipe1.to_i ? 'left' : 'right'%>"><%=image_tag("yellow.jpg", {:style => "width:5%"})%> <%=Treinador.find(e.treinador_id).nome%></p>
+                                <%elsif e.tipo == "Cartão Vermelho"%>
+                                    <p style="text-align:<%=Treinador.find(e.treinador_id).selecao_id.to_i == @game.equipe1.to_i ? 'left' : 'right'%>"><%=image_tag("red.jpg", {:style => "width:5%"})%> <%=Treinador.find(e.treinador_id).nome%></p>
+                                <%else%>
+                                    <p style="text-align:<%=Treinador.find(e.treinador_id).selecao_id.to_i == @game.equipe1.to_i ? 'left' : 'right'%>"><%=e.tipo%> - <%=Treinador.find(e.treinador_id).nome%></p>
+                                <%end%>
                             <%else%>
-                                <p style="text-align:<%=Jogador.find(e.jogador_id).selecao_id.to_i == @game.equipe1.to_i ? 'left' : 'right'%>"><%=e.tipo%> - <%=Jogador.find(e.jogador_id).nome%></p>
+                                <%if e.tipo == "Gol"%>
+                                    <p style="text-align:<%=Jogador.find(e.jogador_id).selecao_id.to_i == @game.equipe1.to_i ? 'left' : 'right'%>"><%=image_tag("gol.jpg", {:style => "width:5%"})%> <%=Jogador.find(e.jogador_id).nome%></p>
+                                <%elsif e.tipo == "Cartão Amarelo"%>
+                                    <p style="text-align:<%=Jogador.find(e.jogador_id).selecao_id.to_i == @game.equipe1.to_i ? 'left' : 'right'%>"><%=image_tag("yellow.jpg", {:style => "width:5%"})%> <%=Jogador.find(e.jogador_id).nome%></p>
+                                <%elsif e.tipo == "Cartão Vermelho"%>
+                                    <p style="text-align:<%=Jogador.find(e.jogador_id).selecao_id.to_i == @game.equipe1.to_i ? 'left' : 'right'%>"><%=image_tag("red.jpg", {:style => "width:5%"})%> <%=Jogador.find(e.jogador_id).nome%></p>
+                                <%else%>
+                                    <p style="text-align:<%=Jogador.find(e.jogador_id).selecao_id.to_i == @game.equipe1.to_i ? 'left' : 'right'%>"><%=e.tipo%> - <%=Jogador.find(e.jogador_id).nome%></p>
+                                <%end%>
                             <%end%>
                         <%end%>
                     </div>
@@ -93,6 +105,8 @@
                         </select>
                         <input style="background-color:red;border:0.5px solid grey;box-shadow: 1px 1px grey;height:20px;margin-bottom:-2%" type="submit" value="">
                     </form>
+                    <br>
+                    <p>coach: <a style="background-color:yellow;border:0.5px solid grey;box-shadow: 1px 1px grey;height:20px;margin-bottom:-2%;text-decoration:none;color:yellow;width:40px" href="/yctr/<%=@game.id%>?coach=<%=@sel2.treinador.id%>">aa</a> <a style="background-color:red;border:0.5px solid grey;box-shadow: 1px 1px grey;height:20px;margin-bottom:-2%;text-decoration:none;color:red;width:40px" href="/rctr/<%=@game.id%>?coach=<%=@sel2.treinador.id%>">aa</a></p>
                     <br>
                 </div>
             </div>

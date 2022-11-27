@@ -101,6 +101,22 @@ class AdminController < ApplicationController
     redirect_back :fallback_location => "/"
   end
 
+  def yctr
+    @yc = YellowCard.new(jogo_id: params[:id], treinador_id: params[:coach])
+    @yc.save
+    @evento = Evento.new(tipo: "Cartão Amarelo", jogo_id: params[:id], treinador_id: params[:coach])
+    @evento.save
+    redirect_back :fallback_location => "/"
+  end
+
+  def rctr
+    @rc = RedCard.new(jogo_id: params[:id], treinador_id: params[:coach])
+    @rc.save
+    @evento = Evento.new(tipo: "Cartão Vermelho", jogo_id: params[:id], treinador_id: params[:coach])
+    @evento.save
+    redirect_back :fallback_location => "/"
+  end
+
   def selecao
     @selecao = Selecao.find(params[:id])
     @jogadores = @selecao.jogadors
@@ -230,19 +246,7 @@ class AdminController < ApplicationController
   end
 
   def rascunho
-    @selecao = Selecao.find(params[:id])
-    @jogadores = @selecao.jogadors
-    @posic = {}
-    @posic["Goleiro"] = 1 
-    @posic["Lateral Esquerdo"] = 2
-    @posic["Zagueiro"] = 3
-    @posic["Lateral Direito"] = 4
-    @posic["Meio-de-Campo"] = 5
-    @posic["Atacante"] = 6
-    @stat = {}
-    @stat["capitão"] = 1
-    @stat["titular"] = 1
-    @stat["reserva"] = 2
+    @games = Jogo.all.select{|gm| gm.started == true}
   end
 
   private

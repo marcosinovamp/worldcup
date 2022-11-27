@@ -34,9 +34,9 @@
         <div class="result">
             <a href="/resultado/<%=h.id%>">
                 <%if h.equipe1 > 32 || h.equipe2 > 32 %>
-                    <%=h.equipe1%> x <%=h.equipe2%>
+                    <%=h.equipe1%> <%=h.g1%> x <%=h.g2%> <%=h.equipe2%>
                 <%else%>  
-                    <img style="width:5%" src="<%=Selecao.find(h.equipe1).bandeira%>"> <%=Selecao.find(h.equipe1).nome%> x <%=Selecao.find(h.equipe2).nome%> <img style="width:5%" src="<%=Selecao.find(h.equipe2).bandeira%>">
+                    <img style="width:5%" class="flag" src="<%=Selecao.find(h.equipe1).bandeira%>"> <%=Selecao.find(h.equipe1).nome%> <%=h.g1%> x <%=h.g2%> <%=Selecao.find(h.equipe2).nome%> <img style="width:5%" class="flag" src="<%=Selecao.find(h.equipe2).bandeira%>">
                 <%end%>
             </a>
         </div>

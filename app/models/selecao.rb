@@ -6,6 +6,7 @@ class Selecao < ApplicationRecord
   has_many :jogadors
   has_many :yellow_cards, through: :jogadors
   has_many :red_cards, through: :jogadors
+  has_many :eventos, through: :jogadors
 
 
   def jogos
@@ -82,6 +83,14 @@ class Selecao < ApplicationRecord
 
   def sg
     self.gp - self.gc
+  end
+
+  def ycards
+    self.yellow_cards.size + self.treinador.yellow_cards.size
+  end
+
+  def rcards
+    self.red_cards.size + self.treinador.red_cards.size
   end
 
 end

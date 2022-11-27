@@ -22,11 +22,31 @@
             <div class="row">
                 <%n=0%>
                 <%@selecao.jogos.each do |g|%>
-                    <%n += 1%>
-                    <%if n.even?%>
-                        <%color="#EEEEEE"%>
+                    <%if g.started == false%>
+                        <%n += 1%>
+                        <%if n.even?%>
+                            <%color="#EEEEEE"%>
+                        <%else%>
+                            <%color="#E0E0E0"%>
+                        <%end%>
                     <%else%>
-                        <%color="#E0E0E0"%>
+                        <%if @selecao.id == g.equipe1%>
+                            <%if g.g1 > g.g2%>
+                                <%color="#A9DFBF"%>
+                            <%elsif g.g1 < g.g2%>
+                                <%color="#F1948A"%>
+                            <%else%>
+                                <%color="#F9E79F"%>
+                            <%end%>
+                        <%else%>
+                            <%if g.g1 < g.g2%>
+                                <%color="#A9DFBF"%>
+                            <%elsif g.g1 > g.g2%>
+                                <%color="#F1948A"%>
+                            <%else%>
+                                <%color="#F9E79F"%>
+                            <%end%>
+                        <%end%>
                     <%end%>
                     <div class="col-sm-1">
                     </div>
@@ -34,7 +54,7 @@
                         <p><%=bradate(g.data.strftime "%d/%m/%Y/%H/%M")%></p>
                     </div>
                     <div style="background-color:<%=color%>" class="col-sm-4 centered downzero">
-                        <p><%="#{Selecao.find(g.equipe1).nome} x #{Selecao.find(g.equipe2).nome}"%></p>
+                        <p style="font-size:80%"><%="#{Selecao.find(g.equipe1).nome} #{g.g1} x #{g.g2} #{Selecao.find(g.equipe2).nome}"%></p>
                     </div>
                     <div class="col-sm-1">
                     </div>  

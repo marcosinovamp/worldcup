@@ -1,24 +1,24 @@
 <div class="container">
     <h1 class="titulo">Classificação Geral</h1>
     <br>
-    <div class="row">
-        <div class="col-sm-3">
+    <div style=" position: -webkit-sticky; /* Safari */;position: sticky;top: -10px" class="row">
+        <div style="background-color:beige" class="col-sm-3">
         </div>
         <div class="col-sm-1 hdclass darkshadow centered">
             <h5 class="centered">Pts</h5>
         </div>
         <div class="col-sm-4">
             <div class="row">
-                <div class="col-sm-2 hdclass darkshadow centered">
+                <div class="col-sm-1 hdclass darkshadow centered">
                     <h5 class="centered">Jgs</h5>
                 </div>
-                <div class="col-sm-2 hdclass darkshadow centered">
+                <div class="col-sm-1 hdclass darkshadow centered">
                     <h5 class="centered">V</h5>
                 </div>
-                <div class="col-sm-2 hdclass darkshadow centered">
+                <div class="col-sm-1 hdclass darkshadow centered">
                     <h5 class="centered">E</h5>
                 </div>
-                <div class="col-sm-2 hdclass darkshadow centered">
+                <div class="col-sm-1 hdclass darkshadow centered">
                     <h5 class="centered">D</h5>
                 </div>
                 <div class="col-sm-2 hdclass darkshadow centered">
@@ -27,50 +27,57 @@
                 <div class="col-sm-2 hdclass darkshadow centered">
                     <h5 class="centered">GC</h5>
                 </div>
+                <div class="col-sm-2 hdclass darkshadow centered">
+                    <h5 class="centered">SG</h5>
+                </div>
+                <div class="col-sm-2 hdclass darkshadow centered">
+                    <h5 class="centered">MGpJ</h5>
+                </div>
             </div>
         </div>
         <div class="col-sm-4">
             <div class="row">
-                <div class="col-sm-3 hdclass darkshadow centered">
-                    <h5 class="centered">SG</h5>
-                </div>
-                <div class="col-sm-3 hdclass darkshadow centered">
+                <div class="col-sm-2 hdclass darkshadow centered">
                     <h5 class="centered">CA</h5>
                 </div>
-                <div class="col-sm-3 hdclass darkshadow centered">
+                <div class="col-sm-2 hdclass darkshadow centered">
                     <h5 class="centered">CV</h5>
                 </div>
                 <div class="col-sm-3 hdclass darkshadow centered">
+                    <h5 class="centered">Apr.</h5>
+                </div>
+                <div class="col-sm-5 hdclass darkshadow centered">
                     <h5 class="centered">Status</h5>
                 </div>
             </div>
         </div>
     </div>
     <div class="placar">
-        <%@selecaos.sort_by{ |t| [denilizador(t.pt)*-1, denilizador(t.sg)*-1, denilizador(t.gp)*-1, t.nome]}.each do |sl|%>
+        <%n = 1%>
+        <%@selecaos.sort_by{ |t| [denilizador(t.pt)*-1, denilizador(t.sg)*-1, denilizador(t.gp)*-1, denilizador(t.yellow_cards.size), t.nome]}.each do |sl|%>
             <div class="placar_line">
                 <div class="row">
-                    <div class="col-sm-1">
-                        <img src="<%=sl.bandeira%>">
+                    <div style="color:#34495E;font-weight:700;font-size:110%" class="col-sm-1">
+                        <%=n%>º
                     </div>
                     <div class="col-sm-2">
-                        <a href="/selecao/<%=sl.id%>"><p><%=sl.nome%></p></a>
+                        <p><a href="/selecao/<%=sl.id%>"><img src="<%=sl.bandeira%>"> <%=sl.nome%></a></p>
                     </div>
                     <div class="col-sm-1 centered">
                         <%=denilizador(sl.pt)%>
                     </div>
                     <div class="col-sm-4">
                         <div class="row">
-                            <div class="col-sm-2 centered">
+                            <div class="col-sm-1 centered">
                                 <%=denilizador(sl.jg)%>
                             </div>
-                            <div class="col-sm-2 centered">
+                            <div class="col-sm-1 centered">
                                 <%=denilizador(sl.vt)%>
                             </div>
-                            <div class="col-sm-2 centered">
+                            <div class="col-sm-1 centered">
                                 <%=denilizador(sl.ep)%>
                             </div>
-                            <div class="col-sm-2 centered">
+                            <div class="col-sm-1 centered">
                                 <%=denilizador(sl.dr)%>
                             </div>
                             <div class="col-sm-2 centered">
@@ -79,20 +86,26 @@
                             <div class="col-sm-2 centered">
                                 <%=denilizador(sl.gc)%>
                             </div>
+                            <div class="col-sm-2 centered">
+                                <%=denilizador(sl.sg)%>
+                            </div>
+                            <div class="col-sm-2 centered">
+                                <%=denilizador((sl.gp.to_f/sl.jg).round(2))%>
+                            </div>
                         </div>
                     </div>
                     <div class="col-sm-4">
                         <div class="row">
-                            <div class="col-sm-3 centered">
-                                <%=denilizador(sl.sg)%>
+                            <div class="col-sm-2 centered">
+                                <%=denilizador(sl.ycards)%>
+                            </div>
+                            <div class="col-sm-2 centered">
+                                <%=denilizador(sl.rcards)%>
                             </div>
                             <div class="col-sm-3 centered">
-                                <%=denilizador(sl.yellow_cards.size)%>
+                                <%=((sl.pt.to_f/(sl.jg == 0 ? 1 : sl.jg*3))*100).round(2).to_s.gsub(".",",")%>%
                             </div>
-                            <div class="col-sm-3 centered">
-                                <%=denilizador(sl.red_cards.size)%>
-                            </div>
-                            <div class="col-sm-3 centered">
+                            <div class="col-sm-5 centered">
                                 <%if @finals.include?(sl.id)%>
                                     <p class="status centered">Finais</p>
                                 <%elsif @semi.include?(sl.id)%>
@@ -109,6 +122,7 @@
                     </div>
                 </div>
             </div>
+            <%n += 1%>
         <%end%>
     </div>
 </div>
