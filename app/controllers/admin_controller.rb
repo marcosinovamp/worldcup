@@ -66,8 +66,10 @@ class AdminController < ApplicationController
     @game.p1 = params[:p1]
     @game.p2 = params[:p2]
     @game.save
-    @evento = Evento.new(tipo:"Gol", jogo_id: @game.id, jogador_id:@jogador.id)
-    @evento.save
+    if params[:p1].nil? 
+      @evento = Evento.new(tipo:"Gol", jogo_id: @game.id, jogador_id:params[:marc1] == 99 || params[:marc2] == 99 ? 99 : @jogador.id)
+      @evento.save
+    end
     redirect_back :fallback_location => "/"
   end
 
@@ -157,11 +159,13 @@ class AdminController < ApplicationController
     @golscontra = []
     @yellow = []
     @red = []
+    @fairplay = []
     Selecao.all.each do |s|
       @golspro << s.gp
       @golscontra << s.gc
       @yellow << s.yellow_cards.size
       @red << s.red_cards.size
+      @fairplay << (s.yellow_cards.size + s.red_cards.size*2)
     end
     @sel_conc = Selecao.all.select{|s| s.jg > 0}
     @golspro = @golspro.uniq.sort
@@ -211,33 +215,24 @@ class AdminController < ApplicationController
     @max_rc = @red.max
     @max_rc2 = @red[-2]
     @max_rc3 = @red[-3]
-    @mrc = @sel_conc.select{|s| s.red_cards.size == @max_rc}
-    @mrc2 = @sel_conc.select{|s| s.red_cards.size == @max_rc2}
-    @mrc3 = @sel_conc.select{|s| s.red_cards.size == @max_rc3}
+    @mrc = @sel_conc.select{|s| s.red_cards.size == @max_rc && s.red_cards.size > 0}
+    @mrc2 = @sel_conc.select{|s| s.red_cards.size == @max_rc2 && s.red_cards.size > 0}
+    @mrc3 = @sel_conc.select{|s| s.red_cards.size == @max_rc3 && s.red_cards.size > 0}
+    @fairplay = @fairplay.uniq.sort
+    @min_fp = @fairplay.min
+    @min_fp2 = @fairplay[1]
+    @min_fp3 = @fairplay[2]
+    @bfp = @sel_conc.select{|s| (s.yellow_cards.size + s.red_cards.size*2) == @min_fp}
+    @bfp2 = @sel_conc.select{|s| (s.yellow_cards.size + s.red_cards.size*2) == @min_fp2}
+    @bfp3 = @sel_conc.select{|s| (s.yellow_cards.size + s.red_cards.size*2) == @min_fp3}
   end
 
   def cgeral
     definições_fase_grupos
-    @finals = []
-    @semi = []
-    @quartas = []
-    @oitavas =[]
-    Grupo.find(12).jogos.each do |j|
-      @finals << j.equipe1
-      @finals << j.equipe2
-    end
-    Grupo.find(11).jogos.each do |j|
-      @semi << j.equipe1
-      @semi << j.equipe2
-    end
-    Grupo.find(10).jogos.each do |j|
-      @quartas << j.equipe1
-      @quartas << j.equipe2
-    end
-    Grupo.find(9).jogos.each do |j|
-      @oitavas << j.equipe1
-      @oitavas << j.equipe2
-    end
+  end
+
+  def confclass
+    definições_fase_grupos
   end
 
   def artilheiros
@@ -271,18 +266,19 @@ class AdminController < ApplicationController
   end
 
   def oitavas(grupo)
-    @sub = grupo.selecaos.sort_by{ |t| [denilizador(t.pt)*-1, denilizador(t.sg)*-1, denilizador(t.gp)*-1]}
+    @sub = grupo.selecaos.sort_by{ |t| [denilizador(t.pt)*-1, denilizador(t.sg)*-1, denilizador(t.gp)*-1, denilizador(t.ycards)]}
     if @sub.first.jg == 3 && @sub.second.jg == 3 && @sub.third.jg == 3 && @sub.fourth.jg == 3
       @c1 = @sub.first
       @c2 = @sub.second
-      Jogo.all.each do |j|
+      grupo.jogos.each do |j|
         if j.equipe1 == "1#{grupo.id}0".to_i
           j.equipe1 = @c1.id
           j.save
         elsif j.equipe1 == "2#{grupo.id}0".to_i
           j.equipe1 = @c2.id
           j.save
-        elsif j.equipe2 == "1#{grupo.id}0".to_i
+        end
+        if j.equipe2 == "1#{grupo.id}0".to_i
           j.equipe2 = @c1.id
           j.save
         elsif j.equipe2 == "2#{grupo.id}0".to_i
@@ -297,14 +293,14 @@ class AdminController < ApplicationController
     Grupo.find(10).jogos.each do |j|
       if j.equipe1 > 100
         @in = j.equipe1 - 100
-        if Jogo.find(@in).winner != "A definir"
+        if Jogo.find(@in).started == true
           j.equipe1 = Jogo.find(@in).winner
           j.save
         end
       end
       if j.equipe2 > 100
         @in2 = j.equipe2 - 100
-        if Jogo.find(@in2).winner != "A definir"
+        if Jogo.find(@in2).started == true
           j.equipe2 = Jogo.find(@in2).winner
           j.save
         end
@@ -316,14 +312,14 @@ class AdminController < ApplicationController
     Grupo.find(11).jogos.each do |j|
       if j.equipe1 > 100
         @in = j.equipe1 - 100
-        if Jogo.find(@in).winner != "A definir"
+        if Jogo.find(@in).started == true
           j.equipe1 = Jogo.find(@in).winner
           j.save
         end
       end
       if j.equipe2 > 100
         @in2 = j.equipe2 - 100
-        if Jogo.find(@in2).winner != "A definir"
+        if Jogo.find(@in2).started == true
           j.equipe2 = Jogo.find(@in2).winner
           j.save
         end
@@ -336,7 +332,7 @@ class AdminController < ApplicationController
     @terceiro = Jogo.find(63)
     if @final.equipe1 > 100
       @in = @final.equipe1 - 100
-      if Jogo.find(@in).winner != "A definir"
+      if Jogo.find(@in).started == true
         @final.equipe1 = Jogo.find(@in).winner
         @terceiro.equipe1 = Jogo.find(@in).loser
         @final.save
@@ -345,7 +341,7 @@ class AdminController < ApplicationController
     end
     if @final.equipe2 > 100
       @in2 = @final.equipe2 - 100
-      if Jogo.find(@in2).winner != "A definir"
+      if Jogo.find(@in2).started == true
         @final.equipe2 = Jogo.find(@in2).winner
         @terceiro.equipe2 = Jogo.find(@in2).loser
         @final.save

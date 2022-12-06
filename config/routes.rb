@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get 'classificacao', to: 'admin#classificacao'
   get 'estatisticas', to: 'admin#estatisticas'
   get 'cgeral', to: 'admin#cgeral'
+  get 'confclass', to: 'admin#confclass'
   get 'artilheiros', to: 'admin#artilheiros'
   get 'hoje', to: 'admin#hoje'
   get 'resultado/:id', to: 'admin#resultado'

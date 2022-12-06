@@ -1,0 +1,196 @@
+<div class="container">
+    <h1 class="titulo">Classificação Confederações</h1>
+    <h4>Absoluta</h4>
+    <div style=" position: -webkit-sticky; /* Safari */;position: sticky;top: -10px" class="row">
+        <div style="background-color:beige" class="col-sm-3">
+        </div>
+        <div class="col-sm-1 hdclass darkshadow centered">
+            <h5 class="centered">Nº Sel.</h5>
+        </div>        
+        <div class="col-sm-1 hdclass darkshadow centered">
+            <h5 class="centered">Pts</h5>
+        </div>
+        <div class="col-sm-2">
+            <div class="row">
+                <div class="col-sm-3 hdclass darkshadow centered">
+                    <h5 class="centered">Jgs</h5>
+                </div>
+                <div class="col-sm-3 hdclass darkshadow centered">
+                    <h5 class="centered">V</h5>
+                </div>
+                <div class="col-sm-3 hdclass darkshadow centered">
+                    <h5 class="centered">E</h5>
+                </div>
+                <div class="col-sm-3 hdclass darkshadow centered">
+                    <h5 class="centered">D</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-1 hdclass darkshadow centered">
+            <h5 class="centered">GP</h5>
+        </div>
+        <div class="col-sm-1 hdclass darkshadow centered">
+            <h5 class="centered">GC</h5>
+        </div>
+        <div class="col-sm-1 hdclass darkshadow centered">
+            <h5 class="centered">SG</h5>
+        </div>
+        <div class="col-sm-1 hdclass darkshadow centered">
+            <h5 class="centered">CA</h5>
+        </div>
+        <div class="col-sm-1 hdclass darkshadow centered">
+            <h5 class="centered">CV</h5>
+        </div>
+    </div>
+    <div class="placar">
+        <%n = 1%>
+        <%@conf.sort_by{ |c| [denilizador(c.pt)*-1, denilizador(c.sg)*-1, denilizador(c.gp)*-1, denilizador(c.ycards), c.nome]}.each do |conf|%>
+            <div class="placar_line">
+                <div class="row">
+                    <div style="color:#34495E;font-weight:700;font-size:110%" class="col-sm-1">
+                        <%=n%>º
+                    </div>
+                    <div class="col-sm-2">
+                        <p><%=image_tag("#{conf.nome.downcase}.png", {:style => "width:30px"})%> <%=conf.nome%></p>
+                    </div>
+                    <div class="col-sm-1 centered">
+                        <%=denilizador(conf.num_selecoes)%>
+                    </div>
+                    <div class="col-sm-1 centered">
+                        <%=denilizador(conf.pt)%>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="row">
+                            <div class="col-sm-3 centered">
+                                <%=denilizador(conf.jg)%>
+                            </div>
+                            <div class="col-sm-3 centered">
+                                <%=denilizador(conf.vt)%>
+                            </div>
+                            <div class="col-sm-3 centered">
+                                <%=denilizador(conf.ep)%>
+                            </div>
+                            <div class="col-sm-3 centered">
+                                <%=denilizador(conf.dr)%>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-1 centered">
+                        <%=denilizador(conf.gp)%>
+                    </div>
+                    <div class="col-sm-1 centered">
+                        <%=denilizador(conf.gc)%>
+                    </div>
+                    <div class="col-sm-1 centered">
+                        <%=denilizador(conf.sg)%>
+                    </div>
+                    <div class="col-sm-1 centered">
+                        <%=denilizador(conf.ycards)%>
+                    </div>
+                    <div class="col-sm-1 centered">
+                        <%=denilizador(conf.rcards)%>
+                    </div>
+                </div>
+            </div>
+            <%n += 1%>
+        <%end%>
+    </div>
+</div>
+<br>
+<div class="container">
+    <h4>Ponderada</h4>
+    <div style=" position: -webkit-sticky; /* Safari */;position: sticky;top: -10px" class="row">
+        <div style="background-color:beige" class="col-sm-3">
+        </div>
+        <div class="col-sm-1 hdclass darkshadow centered">
+            <h5 class="centered">Nº Sel.</h5>
+        </div>        
+        <div class="col-sm-1 hdclass darkshadow centered">
+            <h5 class="centered">Pts</h5>
+        </div>
+        <div class="col-sm-2">
+            <div class="row">
+                <div class="col-sm-3 hdclass darkshadow centered">
+                    <h5 class="centered">Jgs</h5>
+                </div>
+                <div class="col-sm-3 hdclass darkshadow centered">
+                    <h5 class="centered">V</h5>
+                </div>
+                <div class="col-sm-3 hdclass darkshadow centered">
+                    <h5 class="centered">E</h5>
+                </div>
+                <div class="col-sm-3 hdclass darkshadow centered">
+                    <h5 class="centered">D</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-1 hdclass darkshadow centered">
+            <h5 class="centered">GP</h5>
+        </div>
+        <div class="col-sm-1 hdclass darkshadow centered">
+            <h5 class="centered">GC</h5>
+        </div>
+        <div class="col-sm-1 hdclass darkshadow centered">
+            <h5 class="centered">SG</h5>
+        </div>
+        <div class="col-sm-1 hdclass darkshadow centered">
+            <h5 class="centered">CA</h5>
+        </div>
+        <div class="col-sm-1 hdclass darkshadow centered">
+            <h5 class="centered">CV</h5>
+        </div>
+    </div>
+    <div class="placar">
+        <%n = 1%>
+        <%@conf.sort_by{ |c| [denilizador(c.pt.to_f/c.num_selecoes)*-1, denilizador(c.sg.to_f/c.num_selecoes)*-1, denilizador(c.gp.to_f/c.num_selecoes)*-1, denilizador(c.ycards.to_f/c.num_selecoes), c.nome]}.each do |conf|%>
+            <div class="placar_line">
+                <div class="row">
+                    <div style="color:#34495E;font-weight:700;font-size:110%" class="col-sm-1">
+                        <%=n%>º
+                    </div>
+                    <div class="col-sm-2">
+                        <p><%=image_tag("#{conf.nome.downcase}.png", {:style => "width:30px"})%> <%=conf.nome%></p>
+                    </div>
+                    <div class="col-sm-1 centered">
+                        <%=denilizador(conf.num_selecoes)%>
+                    </div>
+                    <div class="col-sm-1 centered">
+                        <%=denilizador((conf.pt.to_f/conf.num_selecoes).round(2))%>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="row">
+                            <div class="col-sm-3 centered">
+                                <%=denilizador((conf.jg.to_f/conf.num_selecoes).round(2))%>
+                            </div>
+                            <div class="col-sm-3 centered">
+                                <%=denilizador((conf.vt.to_f/conf.num_selecoes).round(2))%>
+                            </div>
+                            <div class="col-sm-3 centered">
+                                <%=denilizador((conf.ep.to_f/conf.num_selecoes).round(2))%>
+                            </div>
+                            <div class="col-sm-3 centered">
+                                <%=denilizador((conf.dr.to_f/conf.num_selecoes).round(2))%>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-1 centered">
+                        <%=denilizador((conf.gp.to_f/conf.num_selecoes).round(2))%>
+                    </div>
+                    <div class="col-sm-1 centered">
+                        <%=denilizador((conf.gc.to_f/conf.num_selecoes).round(2))%>
+                    </div>
+                    <div class="col-sm-1 centered">
+                        <%=denilizador((conf.sg.to_f/conf.num_selecoes).round(2))%>
+                    </div>
+                    <div class="col-sm-1 centered">
+                        <%=denilizador((conf.ycards.to_f/conf.num_selecoes).round(2))%>
+                    </div>
+                    <div class="col-sm-1 centered">
+                        <%=denilizador((conf.rcards.to_f/conf.num_selecoes).round(2))%>
+                    </div>
+                </div>
+            </div>
+            <%n += 1%>
+        <%end%>
+    </div>
+</div>

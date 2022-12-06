@@ -14,8 +14,11 @@
             <div class="row">
                 <%g.jogos.each do |j|%>
                     <div class="col-sm-6">
+                        <br>
                         <%if j.grupo_id > 8%>
-                            <p id="adef"><%=explainer(Jogo.find(j.id))%></p>
+                            <%if j.equipe1 > 33 || j.equipe2 > 33%>
+                                <p id="adef"><%=explainer(Jogo.find(j.id))%></p>
+                            <%end%>
                         <%end%>
                         <a href="/resultado/<%=j.id%>">
                             <div class="datahora darkshadow">

@@ -54,7 +54,7 @@
     </div>
     <div class="placar">
         <%n = 1%>
-        <%@selecaos.sort_by{ |t| [denilizador(t.pt)*-1, denilizador(t.sg)*-1, denilizador(t.gp)*-1, denilizador(t.yellow_cards.size), t.nome]}.each do |sl|%>
+        <%@selecaos.sort_by{ |t| [(t.jogos.sort_by{|j| j.grupo_id*-1}.first.grupo_id <= 8 ? 0 : t.jogos.sort_by{|j| j.grupo_id*-1}.first.grupo_id)*-1, denilizador(t.pt)*-1, denilizador(t.sg)*-1, denilizador(t.gp)*-1, denilizador(t.yellow_cards.size), t.nome]}.each do |sl|%>
             <div class="placar_line">
                 <div class="row">
                     <div style="color:#34495E;font-weight:700;font-size:110%" class="col-sm-1">
@@ -106,16 +106,18 @@
                                 <%=((sl.pt.to_f/(sl.jg == 0 ? 1 : sl.jg*3))*100).round(2).to_s.gsub(".",",")%>%
                             </div>
                             <div class="col-sm-5 centered">
-                                <%if @finals.include?(sl.id)%>
-                                    <p class="status centered">Finais</p>
-                                <%elsif @semi.include?(sl.id)%>
-                                    <p class="status centered">Semifinais</p>
-                                <%elsif @quartas.include?(sl.id)%>
-                                    <p class="status centered">Quartas</p>
-                                <%elsif @oitavas.include?(sl.id)%>
-                                    <p class="status centered">Oitavas</p>
+                               <%if sl.jogos.sort_by{|j| j.grupo_id*-1}.first.grupo_id <=8%>
+                                    Grupos
+                                <%elsif sl.jogos.sort_by{|j| j.grupo_id*-1}.first.grupo_id == 9%>
+                                    Oitavas
+                                <%elsif sl.jogos.sort_by{|j| j.grupo_id*-1}.first.grupo_id == 10%>
+                                    Quartas
+                                <%elsif sl.jogos.sort_by{|j| j.grupo_id*-1}.first.grupo_id == 11%>
+                                    Semifinais
+                                <%elsif sl.jogos.sort_by{|j| j.grupo_id*-1}.first.grupo_id == 13%>
+                                    Disputa 3º
                                 <%else%>
-                                    <p class="status centered">Grupos</p>
+                                    "Final"
                                 <%end%>
                             </div>
                         </div>

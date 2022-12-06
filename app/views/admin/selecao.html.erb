@@ -65,17 +65,17 @@
              <h2 class="selecao_title">Estatísticas</h2>
              <div class="centered statbox">
                 <%if @selecao.jg != 0%>
-                    <p>Média de gols a favor: <%=@selecao.gp/@selecao.jg%></p>
+                    <p>Média de gols a favor: <%=@selecao.gp.to_f/@selecao.jg%></p>
                 <%else%>
                     <p>Média de gols a favor: 0</p>
                 <%end%>
                 <%if @selecao.jg != 0%>
-                    <p>Média de gols contra: <%=@selecao.gc/@selecao.jg%></p>
+                    <p>Média de gols contra: <%=@selecao.gc.to_f/@selecao.jg%></p>
                 <%else%>
                     <p>Média de gols contra: 0</p>
                 <%end%>
                 <%if @selecao.jg != 0%>
-                    <p>Média de pontos por jogo: <%=@selecao.pt/@selecao.jg%></p>
+                    <p>Média de pontos por jogo: <%=@selecao.pt.to_f/@selecao.jg%></p>
                 <%else%>
                     <p>Média de pontos por jogo: 0</p>
                 <%end%>

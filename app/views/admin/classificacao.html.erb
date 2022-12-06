@@ -13,14 +13,18 @@
             <div class="col-sm-1 hdclass darkshadow">
                 <h5>Jgs</h5>
             </div>
-            <div class="col-sm-1 hdclass darkshadow">
-                <h5>V</h5>
-            </div>
-            <div class="col-sm-1 hdclass darkshadow">
-                <h5>E</h5>
-            </div>
-            <div class="col-sm-1 hdclass darkshadow">
-                <h5>D</h5>
+            <div class="col-sm-2">
+                <div class="row">
+                    <div class="col-sm-4 hdclass darkshadow">
+                        <h5>V</h5>
+                    </div>
+                    <div class="col-sm-4 hdclass darkshadow">
+                        <h5>E</h5>
+                    </div>
+                    <div class="col-sm-4 hdclass darkshadow">
+                        <h5>D</h5>
+                    </div>
+                </div>
             </div>
             <div class="col-sm-1 hdclass darkshadow">
                 <h5>GP</h5>
@@ -30,6 +34,16 @@
             </div>
             <div class="col-sm-1 hdclass darkshadow">
                 <h5>SG</h5>
+            </div>
+            <div class="col-sm-1">
+                <div class="row">
+                    <div class="col-sm-6 hdclass darkshadow">
+                        <h5>CA</h5>
+                    </div>
+                    <div class="col-sm-6 hdclass darkshadow">
+                        <h5>CV</h5>
+                    </div>
+                </div>
             </div>
             <div class="col-sm-1 hdclass darkshadow">
                 <h5>Status</h5>
@@ -46,38 +60,69 @@
                             <a href="/selecao/<%=sl.id%>"><p><%=sl.nome%></p></a>
                         </div>
                         <div class="col-sm-1">
-                            <%=denilizador(sl.pt)%>
+                            <%=denilizador(sl.pt_grupo)%>
                         </div>
                         <div class="col-sm-1">
-                            <%=denilizador(sl.jg)%>
+                            <%=denilizador(sl.jg_grupo)%>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <%=denilizador(sl.vt_grupo)%>
+                                </div>
+                                <div class="col-sm-4">
+                                    <%=denilizador(sl.ep_grupo)%>
+                                </div>
+                                <div class="col-sm-4">
+                                    <%=denilizador(sl.dr_grupo)%>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-sm-1">
-                            <%=denilizador(sl.vt)%>
+                            <%=denilizador(sl.gp_grupo)%>
                         </div>
                         <div class="col-sm-1">
-                            <%=denilizador(sl.ep)%>
+                            <%=denilizador(sl.gc_grupo)%>
                         </div>
                         <div class="col-sm-1">
-                            <%=denilizador(sl.dr)%>
+                            <%=denilizador(sl.sg_grupo)%>
                         </div>
                         <div class="col-sm-1">
-                            <%=denilizador(sl.gp)%>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <%=denilizador(sl.ycards_grupo)%>
+                                </div>
+                                <div class="col-sm-6">
+                                    <%=denilizador(sl.rcards_grupo)%>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-sm-1">
-                            <%=denilizador(sl.gc)%>
-                        </div>
-                        <div class="col-sm-1">
-                            <%=denilizador(sl.sg)%>
-                        </div>
-                        <div class="col-sm-1">
-                            <%@first = gpc.selecaos.sort_by{ |t| [denilizador(t.pt)*-1, denilizador(t.sg)*-1, denilizador(t.gp)*-1]}.first%>
-                            <%@second = gpc.selecaos.sort_by{ |t| [denilizador(t.pt)*-1, denilizador(t.sg)*-1, denilizador(t.gp)*-1]}.second%>
-                            <%@third = gpc.selecaos.sort_by{ |t| [denilizador(t.pt)*-1, denilizador(t.sg)*-1, denilizador(t.gp)*-1]}.third%>
-                            <%@fourth = gpc.selecaos.sort_by{ |t| [denilizador(t.pt)*-1, denilizador(t.sg)*-1, denilizador(t.gp)*-1]}.fourth%>
+                            <%@first = gpc.selecaos.sort_by{ |t| [denilizador(t.pt_grupo)*-1, denilizador(t.sg_grupo)*-1, denilizador(t.gp_grupo)*-1]}.first%>
+                            <%@second = gpc.selecaos.sort_by{ |t| [denilizador(t.pt_grupo)*-1, denilizador(t.sg_grupo)*-1, denilizador(t.gp_grupo)*-1]}.second%>
+                            <%@third = gpc.selecaos.sort_by{ |t| [denilizador(t.pt_grupo)*-1, denilizador(t.sg_grupo)*-1, denilizador(t.gp_grupo)*-1]}.third%>
+                            <%@fourth = gpc.selecaos.sort_by{ |t| [denilizador(t.pt_grupo)*-1, denilizador(t.sg_grupo)*-1, denilizador(t.gp_grupo)*-1]}.fourth%>
 
-                            <%if sl.pt > @third.pt + projection(@third) && sl.pt > @fourth.pt + projection(@fourth)%>
+                            <%@jgs = 0%>
+                            <%gpc.selecaos.each do |sel|%>
+                                <%@jgs += sel.jg_grupo%>
+                            <%end%>
+                            
+                            <%if @jgs == 12%>
+                                <%if sl.id == @first.id || sl.id == @second.id%>
+                                    <p class="classif"><%="Classificado"%></p>
+                                <%else%>
+                                    <p class="desc"><%="Desclassificado"%></p>
+                                <%end%>
+                            <%elsif sl.pt_grupo > @third.pt + projection(@third) && sl.pt_grupo > @fourth.pt_grupo + projection(@fourth)%>
                                 <p class="classif"><%="Classificado"%></p>
-                            <%elsif sl.pt + projection(sl) < @first.pt && sl.pt + projection(sl) < @second.pt%>
+                            <%elsif sl.pt_grupo == @third.pt + projection(@third) && sl.pt_grupo > @fourth.pt_grupo + projection(@fourth)%>
+                                <%if sl.sg_grupo > @third.sg_grupo%>
+                                    <p class="classif"><%="Classificado"%></p>
+                                <%elsif sl.sg_grupo == @third.sg_grupo && sl.gp_grupo > @third.gp_grupo%>
+                                    <p class="classif"><%="Classificado"%></p>
+                                <%end%>
+                            <%elsif sl.pt_grupo + projection(sl) < @first.pt_grupo && sl.pt_grupo + projection(sl) < @second.pt_grupo%>
                                 <p class="desc"><%="Desclassificado"%></p>
                             <%end%>
                         </div>

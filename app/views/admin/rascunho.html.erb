@@ -3,9 +3,9 @@
 <div class="container">
     <div class="row">
         <%@games.select{|gm| gm.g1 == gm.g2}.each do |g|%>
-            <div style="text-align:center" class="col-sm-6">
-                <h5 style="font-size:25px">Grupo <%=Grupo.find(g.grupo_id).nome%></h5>
-                <p style="font-size:18px"><img width="10%" src="<%=Selecao.find(g.equipe1).bandeira%>"> <%=Selecao.find(g.equipe1).nome%> <%=g.g1%> x <%=g.g2%> <%=Selecao.find(g.equipe2).nome%> <img width="10%" src="<%=Selecao.find(g.equipe2).bandeira%>"></p>
+            <div style="text-align:center" class="col-sm-4 littlebox">
+            <p class="titulopq">Grupo <%=Grupo.find(g.grupo_id).nome%></p>
+            <p><img width="10%" src="<%=Selecao.find(g.equipe1).bandeira%>"> <%=Selecao.find(g.equipe1).nome%> <%=g.g1%> x <%=g.g2%> <%=Selecao.find(g.equipe2).nome%> <img width="10%" src="<%=Selecao.find(g.equipe2).bandeira%>"></p>
             </div>
         <%end%>
     </div>

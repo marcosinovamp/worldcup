@@ -190,3 +190,20 @@
 .flag{
     box-shadow: 1px 1px 1px black !important;
 }
+.fairplay{
+    list-style-type:none;
+    font-size:120%;
+    color: #455A64;
+    text-align:center;
+    text-shadow: 0.5px 0.5px 1px #263238;
+    li{
+        margin-bottom:3px;
+        margin-top:3px;
+        text-align:justify;
+    }
+    img{
+        //margin-bottom: 2px;
+        //margin-top:2px;
+        width: 5%;
+    }
+}
