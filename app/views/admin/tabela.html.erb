@@ -2,7 +2,7 @@
     <div class="titulo">
         <h1 class="darkshadow">Tabela de Jogos</h1>
     </div>
-    <%@grupos.each do |g|%>
+    <%@grupos.sort_by{|gp| gp.id*-1}.each do |g|%>
         <div class="darkshadow subtitulo">
             <%if g.nome.length == 1%>
                 <h4>Grupo <%=g.nome%></h4>

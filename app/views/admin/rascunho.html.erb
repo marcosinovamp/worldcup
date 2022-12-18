@@ -1,12 +1,468 @@
-<h2 class="titulo">Empates</h2>
-<br>
 <div class="container">
-    <div class="row">
-        <%@games.select{|gm| gm.g1 == gm.g2}.each do |g|%>
-            <div style="text-align:center" class="col-sm-4 littlebox">
-            <p class="titulopq">Grupo <%=Grupo.find(g.grupo_id).nome%></p>
-            <p><img width="10%" src="<%=Selecao.find(g.equipe1).bandeira%>"> <%=Selecao.find(g.equipe1).nome%> <%=g.g1%> x <%=g.g2%> <%=Selecao.find(g.equipe2).nome%> <img width="10%" src="<%=Selecao.find(g.equipe2).bandeira%>"></p>
+    <h3 class="titulo">Números da Copa</h3>
+    <div style="text-align:center" class="row">
+        <div class="col-sm-4"></div>
+        <div class="col-sm-2">
+            <p style="text-align:center;font-size:80%;width:100px;margin:auto"><a style="font-size:80%" class="btn btn-primary" href="/cgeral">Classificação Seleções</a></p>
+        </div>
+         <div class="col-sm-2">
+            <p style="text-align:center;font-size:80%;width:100px;margin:auto"><a style="font-size:80%" class="btn btn-primary" href="/confclass">Classificação Confederações</a></p>
+        </div>
+        <div class="col-sm-4"></div>
+    </div>  
+    <br>
+    <div class="row nmb_row">
+        <h4 class="nmb_title">Configuração Inicial</h4>
+        <div class="col-sm-2">
+        </div>
+        <div class="col-sm-2">
+            <div>
+                <p class="number"><%=Jogador.all.size%></p>
+                <p class="comp">jogadores</p>
             </div>
-        <%end%>
+        </div>
+        <div style="margin:auto" class="col-sm-1">
+            <p class="comp">em</p>
+        </div>
+        <div class="col-sm-2">
+            <div>
+                <p class="number"><%=Selecao.all.size%></p>
+                <p class="comp">seleções</p>
+            </div>
+        </div>
+        <div style="margin:auto" class="col-sm-1">
+            <p class="comp">jogarão</p>
+        </div>
+        <div class="col-sm-2">
+            <div>
+                <p class="number"><%=Jogo.all.size%></p>
+                <p class="comp">jogos</p>
+            </div>
+        </div>
+        <div class="col-sm-2">
+        </div>
+    </div>
+    <br>
+    <h2 class="nmb_uptitle">Situação no Momento</h2>
+    <br>
+    <div class="row nmb_row">
+        <h5>Evolução</h5>
+        <div class="col-sm-4">
+            <p class="number"><%=@played_games.size%></p>
+            <p class="comp">partidas jogadas</p>
+            <p class="afterword">(<%=@played_games.size - @draws.size%> jogos com um vencedor e <%=@draws.size%> empates)</p>
+        </div>
+        <div class="col-sm-4">
+            <p class="number"><%=((@played_games.size.to_f/Jogo.all.size)*100).round(2).to_s.gsub(".",",")%>%</p>
+            <div style="width:200px;background-color:#F2F3F4;border:2px solid #455A64;height:50px;margin:auto;border-radius:5px"><div style="height:100%;background-color:red;width:<%=(@played_games.size.to_f/Jogo.all.size)*100%>%"></div></div>
+        </div>
+        <div class="col-sm-4">
+            <p class="number"><%=Jogo.all.size - @played_games.size%></p>
+            <p class="comp">partidas a jogar</p>
+        </div>
+    </div>
+    <br>
+    <div class="row nmb_row">
+        <h5>Gols</h5>
+        <div class="col-sm-4">
+            <p class="number"><%=@goals_total%></p>
+            <p class="comp">gols marcados</p>
+        </div>
+        <div class="col-sm-4">
+            <p class="number"><%=@goals_avg.to_s.gsub(".",",")%></p>
+            <p class="comp">é a média de gols por partida</p>
+        </div>
+        <div class="col-sm-4">
+                <p class="comp">Jogo com mais gols:</p>
+                <p class="number"><img src="<%=@selmost1.bandeira%>">  <%=@most_goals_game.g1%> x <%=@most_goals_game.g2%> <img src="<%=@selmost2.bandeira%>"></p>
+        </div>
+    </div>
+    <br>
+    <div class="row nmb_row">
+        <h5>Cartões</h5>
+        <div style="background-color:#FCF3CF;border:2px solid #D4AC0D;border-radius:5px;width:40%;margin:auto" class="col-sm-6">
+            <p class="number"><%=YellowCard.all.size%></p>
+            <p class="comp">cartões amarelos aplicados, resultando em uma média de </p>
+            <p class="number_lt"><%=(YellowCard.all.size.to_f/@played_games.size).round(2).to_s.gsub(".",",")%></p>
+            <p class="comp_lt">por partida</p>
+        </div>
+        <div style="background-color:#F5B7B1;border:2px solid #B03A2E;border-radius:5px;width:40%;margin:auto" class="col-sm-6">
+            <p class="number"><%=RedCard.all.size%></p>
+            <p class="comp">cartões vermelhos aplicados, resultando em uma média de </p>
+            <p class="number_lt"><%=(RedCard.all.size.to_f/@played_games.size).round(2).to_s.gsub(".",",")%></p>
+            <p class="comp_lt">por partida</p>
+        </div>
+    </div>
+    <br>
+    <h5 class="nmb_uptitle">Os mais e os menos</h5>
+    <br>
+    <div class="row nmb_row gd">
+        <br>
+        <br>
+        <br>
+        <div class="col-sm-6">
+            <p class="comp shadowed">Melhor Ataque:</p>
+            <div class="row">
+                <div class="col-sm-2">
+                </div>
+                <div class="col-sm-1">
+                    <ul class="moreless">
+                        <li>1º</li>
+                        <li>
+                            <%if @bas.size == 1 && @bas2.size != 0%>
+                                2º
+                            <%else%>
+                                <span style="visibility:hidden">x</span>
+                            <%end%>
+                        </li>
+                        <li>
+                            <%if @bas2.size == 0 || @bas3.size == 0%>
+                                <span style="visibility:hidden">x</span>
+                            <%else%>
+                                <%if @bas.size == 2%>
+                                    <li>2º</li>
+                                <%elsif @bas.size == 1 && @bas2.size == 1%>
+                                    <li>3º</li>
+                                <%else%>
+                                    <span style="visibility:hidden">x</span>
+                                <%end%>
+                            <%end%>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-sm-7">
+                    <ul class="moreless">
+                        <%@bas.each do |b|%>
+                            <li><a href="selecao/<%=b.id%>"><img src="<%=b.bandeira%>"> <%=b.nome%></a> com <%=b.gp%> <%=b.gp == 1 ? "gol" : "gols"%></li>
+                        <%end%>
+                        <%if @bas.size < 3%>
+                            <%@bas2.each do |b|%>
+                                <li><a href="selecao/<%=b.id%>"><img src="<%=b.bandeira%>"> <%=b.nome%></a> com <%=b.gp%> <%=b.gp == 1 ? "gol" : "gols"%></li>
+                            <%end%>
+                        <%end%>
+                        <%if (@bas.size + @bas2.size) < 3%>
+                            <%@bas3.each do |b|%>
+                                <li><a href="selecao/<%=b.id%>"><img src="<%=b.bandeira%>"> <%=b.nome%></a> com <%=b.gp%> <%=b.gp == 1 ? "gol" : "gols"%></li>
+                            <%end%>
+                        <%end%>
+                    </ul>
+                </div>
+                <div class="col-sm-2">
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <p class="comp shadowed">Melhor Defesa:</p>
+            <div class="row">
+                <div class="col-sm-2">
+                </div>
+                <div class="col-sm-1">
+                    <ul class="moreless">
+                        <li>1º</li>
+                        <li>
+                            <%if @bds.size == 1 && @bds2.size != 0%>
+                                2º
+                            <%else%>
+                                <span style="visibility:hidden">x</span>
+                            <%end%>
+                        </li>
+                        <li>
+                            <%if @bds2.size == 0 || @bds3.size == 0%>
+                                <span style="visibility:hidden">x</span>
+                            <%else%>
+                                <%if @bds.size == 2%>
+                                    <li>2º</li>
+                                <%elsif @bds.size == 1 && @bds2.size == 1%>
+                                    <li>3º</li>
+                                <%else%>
+                                    <span style="visibility:hidden">x</span>
+                                <%end%>
+                            <%end%>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-sm-7">
+                    <ul class="moreless">
+                        <%@bds.each do |b|%>
+                            <li><a href="selecao/<%=b.id%>"><img src="<%=b.bandeira%>"> <%=b.nome%></a> com <%=b.gc%> <%=b.gc == 1 ? "gol" : "gols"%></li>
+                        <%end%>
+                        <%if @bds.size < 3%>
+                            <%@bds2.each do |b|%>
+                                <li><a href="selecao/<%=b.id%>"><img src="<%=b.bandeira%>"> <%=b.nome%></a> com <%=b.gc%> <%=b.gc == 1 ? "gol" : "gols"%></li>
+                            <%end%>
+                        <%end%>
+                        <%if(@bds.size + @bds2.size) < 3%>
+                            <%@bds3.each do |b|%>
+                                <li><a href="selecao/<%=b.id%>"><img src="<%=b.bandeira%>"> <%=b.nome%></a> com <%=b.gc%> <%=b.gc == 1 ? "gol" : "gols"%></li>
+                            <%end%>
+                        <%end%>
+                    </ul>
+                </div>
+                <div class="col-sm-2">
+                </div>
+            </div>
+        </div>
+    </div>        
+    <div class="row nmb_row bd">
+         <div class="col-sm-6">
+            <p class="comp shadowed">Pior Ataque:</p>
+            <div class="row">
+                <div class="col-sm-2">
+                </div>
+                <div class="col-sm-1">
+                    <ul class="moreless">
+                        <li>1º</li>
+                        <li>
+                            <%if @was.size == 1 && @was2.size != 0%>
+                                2º
+                            <%else%>
+                                <span style="visibility:hidden">x</span>
+                            <%end%>
+                        </li>
+                        <li>
+                            <%if @was2.size == 0 || @was3.size == 0%>
+                                <span style="visibility:hidden">x</span>
+                            <%else%>
+                                <%if @was.size == 2%>
+                                    <li>2º</li>
+                                <%elsif @was.size == 1 && @was2.size == 1%>
+                                    <li>3º</li>
+                                <%else%>
+                                    <span style="visibility:hidden">x</span>
+                                <%end%>
+                            <%end%>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-sm-7">
+                    <ul class="moreless">
+                        <%@was.each do |b|%>
+                            <li><a href="selecao/<%=b.id%>"><img src="<%=b.bandeira%>"> <%=b.nome%></a> com <%=b.gp%> <%=b.gp == 1 ? "gol" : "gols"%></li>
+                        <%end%>
+                        <%if @was.size < 3%>
+                            <%@was2.each do |b|%>
+                                <li><a href="selecao/<%=b.id%>"><img src="<%=b.bandeira%>"> <%=b.nome%></a> com <%=b.gp%> <%=b.gp == 1 ? "gol" : "gols"%></li>
+                            <%end%>
+                        <%end%>
+                        <%if @was.size + @was2.size < 3%>
+                            <%@was3.each do |b|%>
+                                <li><a href="selecao/<%=b.id%>"><img src="<%=b.bandeira%>"> <%=b.nome%></a> com <%=b.gp%> <%=b.gp == 1 ? "gol" : "gols"%></li>
+                            <%end%>
+                        <%end%>
+                    </ul>
+                </div>
+                <div class="col-sm-2">
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+        <div class="col-sm-6">
+            <p class="comp shadowed">Pior Defesa:</p>
+            <div class="row">
+                <div class="col-sm-2">
+                </div>
+                <div class="col-sm-1">
+                    <ul class="moreless">
+                        <li>1º</li>
+                        <li>
+                            <%if @wds.size == 1 && @wds2.size != 0%>
+                                2º
+                            <%else%>
+                                <span style="visibility:hidden">x</span>
+                            <%end%>
+                        </li>
+                        <li>
+                            <%if @wds2.size == 0 || @wds3.size == 0%>
+                                <span style="visibility:hidden">x</span>
+                            <%else%>
+                                <%if @wds.size == 2%>
+                                    <li>2º</li>
+                                <%elsif @wds.size == 1 && @wds2.size == 1%>
+                                    <li>3º</li>
+                                <%else%>
+                                    <span style="visibility:hidden">x</span>
+                                <%end%>
+                            <%end%>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-sm-7">
+                    <ul class="moreless">
+                        <%@wds.each do |b|%>
+                            <li><a href="selecao/<%=b.id%>"><img src="<%=b.bandeira%>"> <%=b.nome%></a> com <%=b.gc%> <%=b.gc == 1 ? "gol" : "gols"%></li>
+                        <%end%>
+                        <%if @wds.size < 3%>
+                            <%@wds2.each do |b|%>
+                                <li><a href="selecao/<%=b.id%>"><img src="<%=b.bandeira%>"> <%=b.nome%></a> com <%=b.gc%> <%=b.gc == 1 ? "gol" : "gols"%></li>
+                            <%end%>
+                        <%end%>
+                        <%if (@wds.size + @wds2.size) < 3%>
+                            <%@wds3.each do |b|%>
+                                <li><a href="selecao/<%=b.id%>"><img src="<%=b.bandeira%>"> <%=b.nome%></a> com <%=b.gc%> <%=b.gc == 1 ? "gol" : "gols"%></li>
+                            <%end%>
+                        <%end%>
+                    </ul>
+                </div>
+                <div class="col-sm-2">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="background-color:transparent !important" class="row nmb_row">
+        <div class="col-sm-6 ca">
+            <p class="comp shadowed">Mais Cartões Amarelos:</p>
+            <div class="row">
+                <div class="col-sm-2">
+                </div>
+                <div class="col-sm-1">
+                    <ul class="moreless">
+                        <li>1º</li>
+                        <li>
+                            <%if @myc.size == 1 && @myc2.size != 0%>
+                                2º
+                            <%else%>
+                                <span style="visibility:hidden">x</span>
+                            <%end%>
+                        </li>
+                        <li>
+                            <%if @myc2.size == 0 || @myc3.size == 0%>
+                                <span style="visibility:hidden">x</span>
+                            <%else%>
+                                <%if @myc.size == 2%>
+                                    <li>2º</li>
+                                <%elsif @myc.size == 1 && @myc2.size == 1%>
+                                    <li>3º</li>
+                                <%else%>
+                                    <span style="visibility:hidden">x</span>
+                                <%end%>
+                            <%end%>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-sm-7">
+                    <ul class="moreless">
+                        <%@myc.each do |b|%>
+                            <li><a href="/selecao/<%=b.id%>"><img src="<%=b.bandeira%>"> <%=b.nome%></a> com <%=b.yellow_cards.size%> <%=b.yellow_cards.size == 1 ? "cartão" : "cartões"%></li>
+                        <%end%>
+                        <%if @myc.size < 3%>
+                            <%@myc2.each do |b|%>
+                                 <li><a href="/selecao/<%=b.id%>"><img src="<%=b.bandeira%>"> <%=b.nome%></a> com <%=b.yellow_cards.size%> <%=b.yellow_cards.size == 1 ? "cartão" : "cartões"%></li>
+                            <%end%>
+                        <%end%>
+                        <%if @myc.size < 3 && @myc2.size < 2%>
+                            <%@myc3.each do |b|%>
+                                 <li><a href="/selecao/<%=b.id%>"><img src="<%=b.bandeira%>"> <%=b.nome%></a> com <%=b.yellow_cards.size%> <%=b.yellow_cards.size == 1 ? "cartão" : "cartões"%></li>
+                            <%end%>
+                        <%end%>
+                    </ul>
+                </div>
+                <div class="col-sm-2">
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 cv">
+            <p class="comp shadowed">Mais Cartões Vermelhos:</p>
+            <div class="row">
+                <div class="col-sm-2">
+                </div>
+                <div class="col-sm-1">
+                    <ul class="moreless">
+                        <li>1º</li>
+                        <li>
+                            <%if @mrc.size == 1 && @mrc2.size != 0%>
+                                2º
+                            <%else%>
+                                <span style="visibility:hidden">x</span>
+                            <%end%>
+                        </li>
+                        <li>
+                            <%if @mrc2.size == 0 || @mrc3.size == 0%>
+                                <span style="visibility:hidden">x</span>
+                            <%else%>
+                                <%if @mrc.size == 2%>
+                                    <li>2º</li>
+                                <%elsif @mrc.size == 1 && @mrc2.size == 1%>
+                                    <li>3º</li>
+                                <%else%>
+                                    <span style="visibility:hidden">x</span>
+                                <%end%>
+                            <%end%>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-sm-7">
+                    <ul class="moreless">
+                        <%@mrc.each do |b|%>
+                            <li><a href="/selecao/<%=b.id%>"><img src="<%=b.bandeira%>"> <%=b.nome%></a> com <%=b.red_cards.size%> <%=b.red_cards.size == 1 ? "cartão" : "cartões"%></li>
+                        <%end%>
+                        <%if @mrc.size < 3%>
+                            <%@mrc2.each do |b|%>
+                                <li><a href="/selecao/<%=b.id%>"><img src="<%=b.bandeira%>"> <%=b.nome%></a> com <%=b.red_cards.size%> <%=b.red_cards.size == 1 ? "cartão" : "cartões"%></li>
+                            <%end%>
+                        <%end%>
+                        <%if @mrc.size < 3 && @mrc2.size < 2%>
+                            <%@mrc3.each do |b|%>
+                                <li><a href="/selecao/<%=b.id%>"><img src="<%=b.bandeira%>"> <%=b.nome%></a> com <%=b.red_cards.size%> <%=b.red_cards.size == 1 ? "cartão" : "cartões"%></li>
+                            <%end%>
+                        <%end%>
+                    </ul>
+                </div>
+                <div class="col-sm-2">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row nmb_row gd">
+         <p class="comp shadowed">Fair Play:</p>
+            <div class="row">
+                <div class="col-sm-2">
+                </div>
+                <div class="col-sm-1">
+                    <ul class="moreless">
+                        <li>1º</li>
+                        <li>
+                            <%if @bfp.size == 1 && @bfp.size != 0%>
+                                2º
+                            <%else%>
+                                <span style="visibility:hidden">x</span>
+                            <%end%>
+                        </li>
+                        <li>
+                            <%if @bfp2.size == 0 || @bfp3.size == 0%>
+                                <span style="visibility:hidden">x</span>
+                            <%else%>
+                                <%if @bfp.size == 2%>
+                                    <li>2º</li>
+                                <%elsif @bfp.size == 1 && @bfp2.size == 1%>
+                                    <li>3º</li>
+                                <%else%>
+                                    <span style="visibility:hidden">x</span>
+                                <%end%>
+                            <%end%>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-sm-7">
+                    <ul class="fairplay">
+                        <%@bfp.each do |b|%>
+                            <li><a href="/selecao/<%=b.id%>"><img width="50px !important" src="<%=b.bandeira%>"> <%=b.nome%></a> com <%=b.red_cards.size%> <%=b.red_cards.size == 1 ? "cartão vermelho" : "cartões vermelhos"%> e <%=b.yellow_cards.size%> <%=b.yellow_cards.size == 1 ? "cartão amarelo" : "cartões amarelos"%></li>
+                        <%end%>
+                        <%if @bfp.size < 3%>
+                            <%@bfp2.each do |b|%>
+                                <li><a href="/selecao/<%=b.id%>"><img src="<%=b.bandeira%>"> <%=b.nome%></a> com <%=b.red_cards.size%> <%=b.red_cards.size == 1 ? "cartão vermelho" : "cartões vermelhos"%> e <%=b.yellow_cards.size%> <%=b.yellow_cards.size == 1 ? "cartão amarelo" : "cartões amarelos"%></li>
+                            <%end%>
+                        <%end%>
+                        <%if @bfp.size < 3 && @bfp2.size < 2%>
+                            <%@bfp3.each do |b|%>
+                                <li><a href="/selecao/<%=b.id%>"><img src="<%=b.bandeira%>"> <%=b.nome%></a> com <%=b.red_cards.size%> <%=b.red_cards.size == 1 ? "cartão vermelho" : "cartões vermelhos"%> e <%=b.yellow_cards.size%> <%=b.yellow_cards.size == 1 ? "cartão amarelo" : "cartões amarelos"%></li>
+                            <%end%>
+                        <%end%>
+                    </ul>
+                </div>
+                <div class="col-sm-2">
+                </div>
+            </div>
+        </div>
     </div>
 </div>

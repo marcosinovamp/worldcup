@@ -6,7 +6,12 @@
             <br>
             <%n=1%>
             <%@jogadores.each do |jg|%>
-                <div class="row">
+                <%if jg.selecao.jogos.select{|j| j.started == false}.size > 0%>
+                    <%@opt = 1%>
+                <%else%>
+                    <%@opt = 0.5%>
+                <%end%>
+                <div style="opacity:<%=@opt%>" class="row">
                     <div class="col-sm-6">
                         <%=n%>. <%=jg.nome%> - camisa <%=jg.number%>
                     </div>
@@ -26,7 +31,12 @@
             <br>
             <%n=1%>
             <%@jogcards.each do |jg|%>
-                <div class="row">
+                <%if jg.selecao.jogos.select{|j| j.started == false}.size > 0%>
+                    <%@opt = 1%>
+                <%else%>
+                    <%@opt = 0.5%>
+                <%end%>
+                <div style="opacity:<%=@opt%>" class="row">
                     <div class="col-sm-6">
                         <%=n%>. <%=jg.nome%> - camisa <%=jg.number%>
                     </div>

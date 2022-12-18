@@ -241,7 +241,81 @@ class AdminController < ApplicationController
   end
 
   def rascunho
-    @games = Jogo.all.select{|gm| gm.started == true}
+    @best_attack = Selecao.all.select{|sl| sl.jg > 0 }.sort_by{|s| s.gp*-1}
+    @best_defence = Selecao.all.select{|sl| sl.jg > 0 }.sort_by{|s| s.gc}
+    @greater_sg = Selecao.all.select{|sl| sl.jg > 0 }.sort_by{|s| s.sg*-1}
+    @most_ycards = Selecao.all.select{|sl| sl.jg > 0 }.sort_by{|s| s.yellow_cards.size*-1}
+    @most_rcards = Selecao.all.select{|sl| sl.jg > 0 }.sort_by{|s| s.red_cards.size*-1}
+    @golspro = []
+    @golscontra = []
+    @yellow = []
+    @red = []
+    @fairplay = []
+    Selecao.all.each do |s|
+      @golspro << ((s.gp.to_f/s.jg)*100).round(2)
+      @golscontra << ((s.gc.to_f/s.jg)*100).round(2)
+      @yellow << ((s.yellow_cards.size.to_f/s.jg)*100).round(2)
+      @red << ((s.red_cards.size.to_f/s.jg)*100).round(2)
+      @fairplay << ((s.yellow_cards.size + s.red_cards.size*2).to_f/s.jg)*100.round(2)
+    end
+    @sel_conc = Selecao.all.select{|s| s.jg > 0}
+    @golspro = @golspro.uniq.sort
+    @max_gp = @golspro.max
+    @max_gp2 = @golspro[-2]
+    @max_gp3 = @golspro[-3]
+    @min_gp = @golspro.min
+    @min_gp2 = @golspro[1]
+    @min_gp3 = @golspro[2]
+    @bas = @sel_conc.select{|s| ((s.gp.to_f/s.jg)*100).round(2) == @max_gp}
+    @bas2 = @sel_conc.select{|s| ((s.gp.to_f/s.jg)*100).round(2) == @max_gp2}
+    @bas3 = @sel_conc.select{|s| ((s.gp.to_f/s.jg)*100).round(2) == @max_gp3}
+    @was = @sel_conc.select{|s| ((s.gp.to_f/s.jg)*100).round(2) == @min_gp}
+    @was2 = @sel_conc.select{|s| ((s.gp.to_f/s.jg)*100).round(2) == @min_gp2}
+    @was3 = @sel_conc.select{|s| ((s.gp.to_f/s.jg)*100).round(2) == @min_gp3}
+    @golscontra = @golscontra.uniq.sort
+    @max_gc = @golscontra.max
+    @max_gc2 = @golscontra[-2]
+    @max_gc3 = @golscontra[-3]
+    @min_gc = @golscontra.min
+    @min_gc2 = @golscontra[1]
+    @min_gc3 = @golscontra[2]
+    @bds = @sel_conc.select{|s| ((s.gc.to_f/s.jg)*100).round(2) == @min_gc}
+    @bds2 = @sel_conc.select{|s| ((s.gc.to_f/s.jg)*100).round(2) == @min_gc2}
+    @bds3 = @sel_conc.select{|s| ((s.gc.to_f/s.jg)*100).round(2) == @min_gc3}
+    @wds = @sel_conc.select{|s| ((s.gc.to_f/s.jg)*100).round(2) == @max_gc}
+    @wds2 = @sel_conc.select{|s| ((s.gc.to_f/s.jg)*100).round(2) == @max_gc2}
+    @wds3 = @sel_conc.select{|s| ((s.gc.to_f/s.jg)*100).round(2) == @max_gc3}
+    @played_games = Jogo.all.select{|j| j.started == true}
+    @draws = @played_games.select{|jg| jg.g1 == jg.g2}
+    @goals_total = 0
+    @played_games.each do |jg|
+      @goals_total += (jg.g1 + jg.g2)
+    end
+    @goals_avg = (@goals_total.to_f/@played_games.size).round(2)
+    @most_goals_game = Jogo.all.select{|jg| jg.started == true}.sort_by{|s| (s.g1 + s.g2)*-1}.first
+    @selmost1 = Selecao.find(@most_goals_game.equipe1)
+    @selmost2 = Selecao.find(@most_goals_game.equipe2)
+    @yellow = @yellow.uniq.sort
+    @max_yc = @yellow.max
+    @max_yc2 = @yellow[-2]
+    @max_yc3 = @yellow[-3]
+    @myc = @sel_conc.select{|s| ((s.yellow_cards.size.to_f/s.jg)*100).round(2) == @max_yc}
+    @myc2 = @sel_conc.select{|s| ((s.yellow_cards.size.to_f/s.jg)*100).round(2) == @max_yc2}
+    @myc3 = @sel_conc.select{|s| ((s.yellow_cards.size.to_f/s.jg)*100).round(2) == @max_yc3}
+    @red = @red.uniq.sort
+    @max_rc = @red.max
+    @max_rc2 = @red[-2]
+    @max_rc3 = @red[-3]
+    @mrc = @sel_conc.select{|s| ((s.red_cards.size.to_f/s.jg)*100).round(2) == @max_rc && s.red_cards.size > 0}
+    @mrc2 = @sel_conc.select{|s| ((s.red_cards.size.to_f/s.jg)*100).round(2) == @max_rc2 && s.red_cards.size > 0}
+    @mrc3 = @sel_conc.select{|s| ((s.red_cards.size.to_f/s.jg)*100).round(2) == @max_rc3 && s.red_cards.size > 0}
+    @fairplay = @fairplay.uniq.sort
+    @min_fp = @fairplay.min
+    @min_fp2 = @fairplay[1]
+    @min_fp3 = @fairplay[2]
+    @bfp = @sel_conc.select{|s| ((s.yellow_cards.size + s.red_cards.size*2).to_f/s.jg)*100.round(2) == @min_fp}
+    @bfp2 = @sel_conc.select{|s| ((s.yellow_cards.size + s.red_cards.size*2).to_f/s.jg)*100.round(2) == @min_fp2}
+    @bfp3 = @sel_conc.select{|s| ((s.yellow_cards.size + s.red_cards.size*2).to_f/s.jg)*100.round(2) == @min_fp3}
   end
 
   private
